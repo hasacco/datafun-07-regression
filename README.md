@@ -77,7 +77,7 @@ open a machine terminal in your `Repos` folder:
 
 ```shell
 # Replace username with YOUR GitHub username.
-git clone https://github.com/username/datafun-07-regression
+git clone https://github.com/hasacco/datafun-07-regression
 
 cd datafun-07-regression
 code .
