@@ -1030,3 +1030,1003 @@ the plots together and write down what you conclude.
 2026-06-21 17:56:33 | INFO | P07 | ========================
 2026-06-21 17:56:33 | INFO | P07 | Executed successfully!
 2026-06-21 17:56:33 | INFO | P07 | ========================
+2026-06-23 16:28:04 | INFO | P07 | === RUN START ===
+2026-06-23 16:28:04 | INFO | P07 | project=P07
+2026-06-23 16:28:04 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:28:04 | INFO | P07 | python=3.14.5
+2026-06-23 16:28:04 | INFO | P07 | os=Windows 11
+2026-06-23 16:28:04 | INFO | P07 | shell=powershell
+2026-06-23 16:28:04 | INFO | P07 | cwd=.
+2026-06-23 16:28:04 | INFO | P07 | github_actions=False
+2026-06-23 16:28:04 | INFO | P07 | === RUN START ===
+2026-06-23 16:28:04 | INFO | P07 | project=REGRESSION
+2026-06-23 16:28:04 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:28:04 | INFO | P07 | python=3.14.5
+2026-06-23 16:28:04 | INFO | P07 | os=Windows 11
+2026-06-23 16:28:04 | INFO | P07 | shell=powershell
+2026-06-23 16:28:04 | INFO | P07 | cwd=.
+2026-06-23 16:28:04 | INFO | P07 | github_actions=False
+2026-06-23 16:28:04 | INFO | P07 | ========================
+2026-06-23 16:28:04 | INFO | P07 | START main()
+2026-06-23 16:28:04 | INFO | P07 | ========================
+2026-06-23 16:28:04 | INFO | P07 | --- Section 2: Load dataset: owid-co2-data-subset ---
+2026-06-23 16:28:04 | INFO | P07 | Loading dataset: owid-co2-data-subset
+2026-06-23 16:28:04 | INFO | P07 | Loaded: 350 rows, 14 columns
+2026-06-23 16:28:04 | INFO | P07 | --- Section 3: Prepare a modeling view (feature + target) ---
+2026-06-23 16:28:04 | INFO | P07 | Creating modeling view (dropping rows missing feature or target)
+2026-06-23 16:28:04 | DEBUG | P07 | Columns required to be non-missing: ['gdp', 'co2']
+2026-06-23 16:28:04 | INFO | P07 | Original rows: 350
+2026-06-23 16:28:04 | INFO | P07 | Model rows:    308
+2026-06-23 16:28:04 | INFO | P07 | Rows dropped:  42
+2026-06-23 16:28:04 | INFO | P07 | --- Section 4: Build feature matrix X and target vector y ---
+2026-06-23 16:28:04 | INFO | P07 | Building feature matrix X and target vector y
+2026-06-23 16:28:04 | DEBUG | P07 | X shape: (308, 1)  (rows, features)
+2026-06-23 16:28:04 | DEBUG | P07 | y shape: (308,)  (rows,)
+2026-06-23 16:28:04 | INFO | P07 | --- Section 5: Fit a straight line and exponential curve (numpy and scikit-learn) ---
+2026-06-23 16:28:04 | INFO | P07 | Fitting a linear regression (scikit-learn)
+2026-06-23 16:28:04 | DEBUG | P07 |   slope:     3.21582e-10
+2026-06-23 16:28:04 | DEBUG | P07 |   intercept: 308.446
+2026-06-23 16:28:04 | INFO | P07 | Fitted line:
+2026-06-23 16:28:04 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:28:04 | DEBUG | P07 |   numpy check -> slope 3.21582e-10, intercept 308.446
+2026-06-23 16:28:04 | INFO | P07 | Fitting an exponential curve (scipy.optimize.curve_fit)
+2026-06-23 16:28:04 | INFO | P07 | Fitted exponential curve:
+2026-06-23 16:28:04 | INFO | P07 |   co2 = 1 * exp(0.01 * gdp)
+2026-06-23 16:28:04 | INFO | P07 | --- Section 6: Predict fitted values and an example value ---
+2026-06-23 16:28:04 | INFO | P07 | Computing fitted values for every observed row
+2026-06-23 16:28:04 | INFO | P07 | Predicting CO2 emissions for one example GDP value
+2026-06-23 16:28:04 | DEBUG | P07 |   example gdp: 1e+12
+2026-06-23 16:28:04 | DEBUG | P07 |   predicted co2: 630.029
+2026-06-23 16:28:04 | INFO | P07 | --- Section 7: Examine the fit (residuals, R-squared, RMSE) ---
+2026-06-23 16:28:04 | INFO | P07 | Computing residuals (actual - fitted)
+2026-06-23 16:28:04 | INFO | P07 | Fit numbers (requires interpretation):
+2026-06-23 16:28:04 | DEBUG | P07 |   R-squared: 0.9562
+2026-06-23 16:28:04 | DEBUG | P07 |   RMSE:      1352.43  (in units of CO2 emissions)
+2026-06-23 16:28:04 | DEBUG | P07 |   residual min:  -4622.56
+2026-06-23 16:28:04 | DEBUG | P07 |   residual max:  8584.86
+2026-06-23 16:28:04 | DEBUG | P07 |   residual mean: 5.90581e-14
+2026-06-23 16:28:04 | INFO | P07 | 
+CUSTOM: Update these notes and use Markdown cells to narrate what you see.
+
+How to read these (this is YOUR judgment, not the script's):
+
+ - R-squared near 1: the line accounts for most of the variation in y.
+ - R-squared near 0: the line accounts for almost none.
+ - RMSE: the typical distance between a point and the line, in y's units.
+ - Residual plot:
+   - if a straight line fits well, residuals
+     scatter randomly around 0 with no pattern.
+   - A curve,
+   - a funnel (spread that grows or shrinks),
+   - or clusters are signs a straight line
+     is NOT the right description, which can be a useful finding.
+
+There is no threshold that decides this for you.
+Look at the numbers and the plots together and
+write down what you conclude.
+
+2026-06-23 16:28:04 | INFO | P07 | Computing residuals for the exponential fit
+2026-06-23 16:28:04 | INFO | P07 | Exponential fit numbers (requires interpretation):
+2026-06-23 16:28:04 | DEBUG | P07 |   co2 = 1 * exp(0.01 * gdp)
+2026-06-23 16:28:04 | DEBUG | P07 |   R-squared: -inf
+2026-06-23 16:28:04 | DEBUG | P07 |   RMSE:      inf  (in units of CO2 emissions)
+2026-06-23 16:28:04 | DEBUG | P07 |   residual min:  -inf
+2026-06-23 16:28:04 | DEBUG | P07 |   residual max:  -inf
+2026-06-23 16:28:04 | DEBUG | P07 |   residual mean:  -inf
+2026-06-23 16:28:04 | INFO | P07 | --- Section 8: Charts ---
+2026-06-23 16:28:04 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:28:04 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:28:04 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:28:05 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:28:05 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:28:05 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:28:05 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:28:05 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:28:05 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:28:05 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:28:05 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:28:05 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:28:05 | INFO | P07 | --- Section 9: Summary and next steps ---
+2026-06-23 16:28:05 | INFO | P07 | ========================
+2026-06-23 16:28:05 | INFO | P07 | SUMMARY
+2026-06-23 16:28:05 | INFO | P07 | ========================
+2026-06-23 16:28:05 | INFO | P07 | Dataset: owid-co2-data-subset
+2026-06-23 16:28:05 | INFO | P07 | Feature (x): gdp
+2026-06-23 16:28:05 | INFO | P07 | Target  (y): co2
+2026-06-23 16:28:05 | INFO | P07 | Original rows: 350
+2026-06-23 16:28:05 | INFO | P07 | Model rows:    308
+2026-06-23 16:28:05 | INFO | P07 | Fitted line:
+2026-06-23 16:28:05 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:28:05 | INFO | P07 | ======================
+2026-06-23 16:28:05 | INFO | P07 | Review the fit numbers (R-squared, RMSE). 
+2026-06-23 16:28:05 | INFO | P07 | Look at the fitted-line plot and the residual plot. 
+2026-06-23 16:28:05 | INFO | P07 | Decide if a `straight line` is a fair description. 
+2026-06-23 16:28:05 | INFO | P07 | If the residuals DO show a pattern (e.g. curve, funnel, clusters),
+2026-06-23 16:28:05 | INFO | P07 | then a straight line is NOT a good description. 
+2026-06-23 16:28:05 | INFO | P07 | If the residuals DO NOT show a pattern,
+2026-06-23 16:28:05 | INFO | P07 | then a straight line MIGHT be a good description. 
+2026-06-23 16:28:05 | INFO | P07 | Either way, the findings may be valuable.
+2026-06-23 16:28:05 | INFO | P07 | ======================
+2026-06-23 16:28:05 | INFO | P07 | Repeat with a different feature, or a transformed feature, 
+2026-06-23 16:28:05 | INFO | P07 | to investigate other options.
+2026-06-23 16:28:05 | INFO | P07 | ======================
+2026-06-23 16:28:05 | INFO | P07 | Include instructions and specifics in your README.md file.
+2026-06-23 16:28:05 | INFO | P07 | Write up your narrative on your docs/index.md file.
+2026-06-23 16:28:05 | INFO | P07 | Include your next step suggestions for further analysis or modeling.
+2026-06-23 16:28:05 | INFO | P07 | ======================
+2026-06-23 16:28:05 | INFO | P07 | ----- in a script, call plt.show() once at the end to display all charts -----
+2026-06-23 16:28:05 | INFO | P07 | ----- in a script, close the chart windows (with the close button) to continue  -----
+2026-06-23 16:28:49 | INFO | P07 | Linear regression workflow complete
+2026-06-23 16:28:49 | INFO | P07 | IMPORTANT: This script creates chart windows.
+2026-06-23 16:28:49 | INFO | P07 | Close any chart windows and terminate this process with CTRL+c as needed.
+2026-06-23 16:28:49 | INFO | P07 | ========================
+2026-06-23 16:28:49 | INFO | P07 | Executed successfully!
+2026-06-23 16:28:49 | INFO | P07 | ========================
+2026-06-23 16:30:18 | INFO | P07 | === RUN START ===
+2026-06-23 16:30:18 | INFO | P07 | project=P07
+2026-06-23 16:30:18 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:30:18 | INFO | P07 | python=3.14.5
+2026-06-23 16:30:18 | INFO | P07 | os=Windows 11
+2026-06-23 16:30:18 | INFO | P07 | shell=powershell
+2026-06-23 16:30:18 | INFO | P07 | cwd=.
+2026-06-23 16:30:18 | INFO | P07 | github_actions=False
+2026-06-23 16:30:18 | INFO | P07 | === RUN START ===
+2026-06-23 16:30:18 | INFO | P07 | project=REGRESSION
+2026-06-23 16:30:18 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:30:18 | INFO | P07 | python=3.14.5
+2026-06-23 16:30:18 | INFO | P07 | os=Windows 11
+2026-06-23 16:30:18 | INFO | P07 | shell=powershell
+2026-06-23 16:30:18 | INFO | P07 | cwd=.
+2026-06-23 16:30:18 | INFO | P07 | github_actions=False
+2026-06-23 16:30:18 | INFO | P07 | ========================
+2026-06-23 16:30:18 | INFO | P07 | START main()
+2026-06-23 16:30:18 | INFO | P07 | ========================
+2026-06-23 16:30:18 | INFO | P07 | --- Section 2: Load dataset: owid-co2-data-subset ---
+2026-06-23 16:30:18 | INFO | P07 | Loading dataset: owid-co2-data-subset
+2026-06-23 16:30:18 | INFO | P07 | Loaded: 350 rows, 14 columns
+2026-06-23 16:30:18 | INFO | P07 | --- Section 3: Prepare a modeling view (feature + target) ---
+2026-06-23 16:30:18 | INFO | P07 | Creating modeling view (dropping rows missing feature or target)
+2026-06-23 16:30:18 | DEBUG | P07 | Columns required to be non-missing: ['gdp', 'co2']
+2026-06-23 16:30:18 | INFO | P07 | Original rows: 350
+2026-06-23 16:30:18 | INFO | P07 | Model rows:    308
+2026-06-23 16:30:18 | INFO | P07 | Rows dropped:  42
+2026-06-23 16:30:18 | INFO | P07 | --- Section 4: Build feature matrix X and target vector y ---
+2026-06-23 16:30:18 | INFO | P07 | Building feature matrix X and target vector y
+2026-06-23 16:30:18 | DEBUG | P07 | X shape: (308, 1)  (rows, features)
+2026-06-23 16:30:18 | DEBUG | P07 | y shape: (308,)  (rows,)
+2026-06-23 16:30:18 | INFO | P07 | --- Section 5: Fit a straight line and exponential curve (numpy and scikit-learn) ---
+2026-06-23 16:30:18 | INFO | P07 | Fitting a linear regression (scikit-learn)
+2026-06-23 16:30:18 | DEBUG | P07 |   slope:     3.21582e-10
+2026-06-23 16:30:18 | DEBUG | P07 |   intercept: 308.446
+2026-06-23 16:30:18 | INFO | P07 | Fitted line:
+2026-06-23 16:30:18 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:30:18 | DEBUG | P07 |   numpy check -> slope 3.21582e-10, intercept 308.446
+2026-06-23 16:30:18 | INFO | P07 | Fitting an exponential curve (scipy.optimize.curve_fit)
+2026-06-23 16:30:18 | INFO | P07 | Fitted exponential curve:
+2026-06-23 16:30:18 | INFO | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp / 1e+12)
+2026-06-23 16:30:18 | INFO | P07 | --- Section 6: Predict fitted values and an example value ---
+2026-06-23 16:30:18 | INFO | P07 | Computing fitted values for every observed row
+2026-06-23 16:30:18 | INFO | P07 | Predicting CO2 emissions for one example GDP value
+2026-06-23 16:30:18 | DEBUG | P07 |   example gdp: 1e+12
+2026-06-23 16:30:18 | DEBUG | P07 |   predicted co2: 630.029
+2026-06-23 16:30:18 | INFO | P07 | --- Section 7: Examine the fit (residuals, R-squared, RMSE) ---
+2026-06-23 16:30:18 | INFO | P07 | Computing residuals (actual - fitted)
+2026-06-23 16:30:18 | INFO | P07 | Fit numbers (requires interpretation):
+2026-06-23 16:30:18 | DEBUG | P07 |   R-squared: 0.9562
+2026-06-23 16:30:18 | DEBUG | P07 |   RMSE:      1352.43  (in units of CO2 emissions)
+2026-06-23 16:30:18 | DEBUG | P07 |   residual min:  -4622.56
+2026-06-23 16:30:18 | DEBUG | P07 |   residual max:  8584.86
+2026-06-23 16:30:18 | DEBUG | P07 |   residual mean: 5.90581e-14
+2026-06-23 16:30:18 | INFO | P07 | 
+CUSTOM: Update these notes and use Markdown cells to narrate what you see.
+
+How to read these (this is YOUR judgment, not the script's):
+
+ - R-squared near 1: the line accounts for most of the variation in y.
+ - R-squared near 0: the line accounts for almost none.
+ - RMSE: the typical distance between a point and the line, in y's units.
+ - Residual plot:
+   - if a straight line fits well, residuals
+     scatter randomly around 0 with no pattern.
+   - A curve,
+   - a funnel (spread that grows or shrinks),
+   - or clusters are signs a straight line
+     is NOT the right description, which can be a useful finding.
+
+There is no threshold that decides this for you.
+Look at the numbers and the plots together and
+write down what you conclude.
+
+2026-06-23 16:30:18 | INFO | P07 | Computing residuals for the exponential fit
+2026-06-23 16:30:18 | INFO | P07 | Exponential fit numbers (requires interpretation):
+2026-06-23 16:30:18 | DEBUG | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp)
+2026-06-23 16:30:18 | DEBUG | P07 |   R-squared: 0.8030
+2026-06-23 16:30:18 | DEBUG | P07 |   RMSE:      2869.13  (in units of CO2 emissions)
+2026-06-23 16:30:18 | DEBUG | P07 |   residual min:  -9585.33
+2026-06-23 16:30:18 | DEBUG | P07 |   residual max:  16617.2
+2026-06-23 16:30:18 | DEBUG | P07 |   residual mean:  -407.977
+2026-06-23 16:30:18 | INFO | P07 | --- Section 8: Charts ---
+2026-06-23 16:30:18 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:30:18 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:30:18 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:30:18 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:30:18 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:30:18 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:30:18 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:30:18 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:30:18 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:30:18 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:30:18 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:30:18 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:30:18 | INFO | P07 | --- Section 9: Summary and next steps ---
+2026-06-23 16:30:18 | INFO | P07 | ========================
+2026-06-23 16:30:18 | INFO | P07 | SUMMARY
+2026-06-23 16:30:18 | INFO | P07 | ========================
+2026-06-23 16:30:18 | INFO | P07 | Dataset: owid-co2-data-subset
+2026-06-23 16:30:18 | INFO | P07 | Feature (x): gdp
+2026-06-23 16:30:18 | INFO | P07 | Target  (y): co2
+2026-06-23 16:30:18 | INFO | P07 | Original rows: 350
+2026-06-23 16:30:18 | INFO | P07 | Model rows:    308
+2026-06-23 16:30:18 | INFO | P07 | Fitted line:
+2026-06-23 16:30:18 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:30:18 | INFO | P07 | ======================
+2026-06-23 16:30:18 | INFO | P07 | Review the fit numbers (R-squared, RMSE). 
+2026-06-23 16:30:18 | INFO | P07 | Look at the fitted-line plot and the residual plot. 
+2026-06-23 16:30:19 | INFO | P07 | Decide if a `straight line` is a fair description. 
+2026-06-23 16:30:19 | INFO | P07 | If the residuals DO show a pattern (e.g. curve, funnel, clusters),
+2026-06-23 16:30:19 | INFO | P07 | then a straight line is NOT a good description. 
+2026-06-23 16:30:19 | INFO | P07 | If the residuals DO NOT show a pattern,
+2026-06-23 16:30:19 | INFO | P07 | then a straight line MIGHT be a good description. 
+2026-06-23 16:30:19 | INFO | P07 | Either way, the findings may be valuable.
+2026-06-23 16:30:19 | INFO | P07 | ======================
+2026-06-23 16:30:19 | INFO | P07 | Repeat with a different feature, or a transformed feature, 
+2026-06-23 16:30:19 | INFO | P07 | to investigate other options.
+2026-06-23 16:30:19 | INFO | P07 | ======================
+2026-06-23 16:30:19 | INFO | P07 | Include instructions and specifics in your README.md file.
+2026-06-23 16:30:19 | INFO | P07 | Write up your narrative on your docs/index.md file.
+2026-06-23 16:30:19 | INFO | P07 | Include your next step suggestions for further analysis or modeling.
+2026-06-23 16:30:19 | INFO | P07 | ======================
+2026-06-23 16:30:19 | INFO | P07 | ----- in a script, call plt.show() once at the end to display all charts -----
+2026-06-23 16:30:19 | INFO | P07 | ----- in a script, close the chart windows (with the close button) to continue  -----
+2026-06-23 16:30:33 | INFO | P07 | Linear regression workflow complete
+2026-06-23 16:30:33 | INFO | P07 | IMPORTANT: This script creates chart windows.
+2026-06-23 16:30:33 | INFO | P07 | Close any chart windows and terminate this process with CTRL+c as needed.
+2026-06-23 16:30:33 | INFO | P07 | ========================
+2026-06-23 16:30:33 | INFO | P07 | Executed successfully!
+2026-06-23 16:30:33 | INFO | P07 | ========================
+2026-06-23 16:33:22 | INFO | P07 | === RUN START ===
+2026-06-23 16:33:22 | INFO | P07 | project=P07
+2026-06-23 16:33:22 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:33:22 | INFO | P07 | python=3.14.5
+2026-06-23 16:33:22 | INFO | P07 | os=Windows 11
+2026-06-23 16:33:22 | INFO | P07 | shell=powershell
+2026-06-23 16:33:22 | INFO | P07 | cwd=.
+2026-06-23 16:33:22 | INFO | P07 | github_actions=False
+2026-06-23 16:33:22 | INFO | P07 | === RUN START ===
+2026-06-23 16:33:22 | INFO | P07 | project=REGRESSION
+2026-06-23 16:33:22 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:33:22 | INFO | P07 | python=3.14.5
+2026-06-23 16:33:22 | INFO | P07 | os=Windows 11
+2026-06-23 16:33:22 | INFO | P07 | shell=powershell
+2026-06-23 16:33:22 | INFO | P07 | cwd=.
+2026-06-23 16:33:22 | INFO | P07 | github_actions=False
+2026-06-23 16:33:22 | INFO | P07 | ========================
+2026-06-23 16:33:22 | INFO | P07 | START main()
+2026-06-23 16:33:22 | INFO | P07 | ========================
+2026-06-23 16:33:22 | INFO | P07 | --- Section 2: Load dataset: owid-co2-data-subset ---
+2026-06-23 16:33:22 | INFO | P07 | Loading dataset: owid-co2-data-subset
+2026-06-23 16:33:22 | INFO | P07 | Loaded: 350 rows, 14 columns
+2026-06-23 16:33:22 | INFO | P07 | --- Section 3: Prepare a modeling view (feature + target) ---
+2026-06-23 16:33:22 | INFO | P07 | Creating modeling view (dropping rows missing feature or target)
+2026-06-23 16:33:22 | DEBUG | P07 | Columns required to be non-missing: ['gdp', 'co2']
+2026-06-23 16:33:22 | INFO | P07 | Original rows: 350
+2026-06-23 16:33:22 | INFO | P07 | Model rows:    308
+2026-06-23 16:33:22 | INFO | P07 | Rows dropped:  42
+2026-06-23 16:33:22 | INFO | P07 | --- Section 4: Build feature matrix X and target vector y ---
+2026-06-23 16:33:22 | INFO | P07 | Building feature matrix X and target vector y
+2026-06-23 16:33:22 | DEBUG | P07 | X shape: (308, 1)  (rows, features)
+2026-06-23 16:33:22 | DEBUG | P07 | y shape: (308,)  (rows,)
+2026-06-23 16:33:22 | INFO | P07 | --- Section 5: Fit a straight line, exponential curve, and logarithmic curve (numpy and scikit-learn) ---
+2026-06-23 16:33:22 | INFO | P07 | Fitting a linear regression (scikit-learn)
+2026-06-23 16:33:22 | DEBUG | P07 |   slope:     3.21582e-10
+2026-06-23 16:33:22 | DEBUG | P07 |   intercept: 308.446
+2026-06-23 16:33:22 | INFO | P07 | Fitted line:
+2026-06-23 16:33:22 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:33:22 | DEBUG | P07 |   numpy check -> slope 3.21582e-10, intercept 308.446
+2026-06-23 16:33:22 | INFO | P07 | Fitting an exponential curve (scipy.optimize.curve_fit)
+2026-06-23 16:33:22 | INFO | P07 | Fitted exponential curve:
+2026-06-23 16:33:22 | INFO | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp / 1e+12)
+2026-06-23 16:33:22 | INFO | P07 | Fitting a logarithmic curve (scipy.optimize.curve_fit)
+2026-06-23 16:33:22 | INFO | P07 | Fitted logarithmic curve:
+2026-06-23 16:33:22 | INFO | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:33:22 | INFO | P07 | --- Section 6: Predict fitted values and an example value ---
+2026-06-23 16:33:22 | INFO | P07 | Computing fitted values for every observed row
+2026-06-23 16:33:22 | INFO | P07 | Predicting CO2 emissions for one example GDP value
+2026-06-23 16:33:22 | DEBUG | P07 |   example gdp: 1e+12
+2026-06-23 16:33:22 | DEBUG | P07 |   predicted co2: 630.029
+2026-06-23 16:33:22 | INFO | P07 | --- Section 7: Examine the fit (residuals, R-squared, RMSE) ---
+2026-06-23 16:33:22 | INFO | P07 | Computing residuals (actual - fitted)
+2026-06-23 16:33:22 | INFO | P07 | Fit numbers (requires interpretation):
+2026-06-23 16:33:22 | DEBUG | P07 |   R-squared: 0.9562
+2026-06-23 16:33:22 | DEBUG | P07 |   RMSE:      1352.43  (in units of CO2 emissions)
+2026-06-23 16:33:22 | DEBUG | P07 |   residual min:  -4622.56
+2026-06-23 16:33:22 | DEBUG | P07 |   residual max:  8584.86
+2026-06-23 16:33:22 | DEBUG | P07 |   residual mean: 5.90581e-14
+2026-06-23 16:33:22 | INFO | P07 | 
+CUSTOM: Update these notes and use Markdown cells to narrate what you see.
+
+How to read these (this is YOUR judgment, not the script's):
+
+ - R-squared near 1: the line accounts for most of the variation in y.
+ - R-squared near 0: the line accounts for almost none.
+ - RMSE: the typical distance between a point and the line, in y's units.
+ - Residual plot:
+   - if a straight line fits well, residuals
+     scatter randomly around 0 with no pattern.
+   - A curve,
+   - a funnel (spread that grows or shrinks),
+   - or clusters are signs a straight line
+     is NOT the right description, which can be a useful finding.
+
+There is no threshold that decides this for you.
+Look at the numbers and the plots together and
+write down what you conclude.
+
+2026-06-23 16:33:22 | INFO | P07 | Computing residuals for the exponential fit
+2026-06-23 16:33:22 | INFO | P07 | Exponential fit numbers (requires interpretation):
+2026-06-23 16:33:22 | DEBUG | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp)
+2026-06-23 16:33:22 | DEBUG | P07 |   R-squared: 0.8030
+2026-06-23 16:33:22 | DEBUG | P07 |   RMSE:      2869.13  (in units of CO2 emissions)
+2026-06-23 16:33:22 | DEBUG | P07 |   residual min:  -9585.33
+2026-06-23 16:33:22 | DEBUG | P07 |   residual max:  16617.2
+2026-06-23 16:33:22 | DEBUG | P07 |   residual mean:  -407.977
+2026-06-23 16:33:22 | INFO | P07 | Computing residuals for the logarithmic fit
+2026-06-23 16:33:22 | INFO | P07 | Logarithmic fit numbers (requires interpretation):
+2026-06-23 16:33:22 | DEBUG | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:33:22 | DEBUG | P07 |   R-squared: 0.6851
+2026-06-23 16:33:22 | DEBUG | P07 |   RMSE:      3627.04  (in units of CO2 emissions)
+2026-06-23 16:33:22 | DEBUG | P07 |   residual min:  -6452.09
+2026-06-23 16:33:22 | DEBUG | P07 |   residual max:  15955.7
+2026-06-23 16:33:22 | DEBUG | P07 |   residual mean:  1.43369e-06
+2026-06-23 16:33:22 | INFO | P07 | --- Section 8: Charts ---
+2026-06-23 16:33:22 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:33:22 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:33:22 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:33:22 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:33:22 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:33:22 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:33:22 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:33:22 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:33:22 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:33:22 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:33:22 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:33:22 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:33:22 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:33:22 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:33:22 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:33:23 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:33:23 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:33:23 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:33:23 | INFO | P07 | --- Section 9: Summary and next steps ---
+2026-06-23 16:33:23 | INFO | P07 | ========================
+2026-06-23 16:33:23 | INFO | P07 | SUMMARY
+2026-06-23 16:33:23 | INFO | P07 | ========================
+2026-06-23 16:33:23 | INFO | P07 | Dataset: owid-co2-data-subset
+2026-06-23 16:33:23 | INFO | P07 | Feature (x): gdp
+2026-06-23 16:33:23 | INFO | P07 | Target  (y): co2
+2026-06-23 16:33:23 | INFO | P07 | Original rows: 350
+2026-06-23 16:33:23 | INFO | P07 | Model rows:    308
+2026-06-23 16:33:23 | INFO | P07 | Fitted line:
+2026-06-23 16:33:23 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:33:23 | INFO | P07 | ======================
+2026-06-23 16:33:23 | INFO | P07 | Review the fit numbers (R-squared, RMSE). 
+2026-06-23 16:33:23 | INFO | P07 | Look at the fitted-line plot and the residual plot. 
+2026-06-23 16:33:23 | INFO | P07 | Decide if a `straight line` is a fair description. 
+2026-06-23 16:33:23 | INFO | P07 | If the residuals DO show a pattern (e.g. curve, funnel, clusters),
+2026-06-23 16:33:23 | INFO | P07 | then a straight line is NOT a good description. 
+2026-06-23 16:33:23 | INFO | P07 | If the residuals DO NOT show a pattern,
+2026-06-23 16:33:23 | INFO | P07 | then a straight line MIGHT be a good description. 
+2026-06-23 16:33:23 | INFO | P07 | Either way, the findings may be valuable.
+2026-06-23 16:33:23 | INFO | P07 | ======================
+2026-06-23 16:33:23 | INFO | P07 | Repeat with a different feature, or a transformed feature, 
+2026-06-23 16:33:23 | INFO | P07 | to investigate other options.
+2026-06-23 16:33:23 | INFO | P07 | ======================
+2026-06-23 16:33:23 | INFO | P07 | Include instructions and specifics in your README.md file.
+2026-06-23 16:33:23 | INFO | P07 | Write up your narrative on your docs/index.md file.
+2026-06-23 16:33:23 | INFO | P07 | Include your next step suggestions for further analysis or modeling.
+2026-06-23 16:33:23 | INFO | P07 | ======================
+2026-06-23 16:33:23 | INFO | P07 | ----- in a script, call plt.show() once at the end to display all charts -----
+2026-06-23 16:33:23 | INFO | P07 | ----- in a script, close the chart windows (with the close button) to continue  -----
+2026-06-23 16:33:59 | INFO | P07 | Linear regression workflow complete
+2026-06-23 16:33:59 | INFO | P07 | IMPORTANT: This script creates chart windows.
+2026-06-23 16:33:59 | INFO | P07 | Close any chart windows and terminate this process with CTRL+c as needed.
+2026-06-23 16:33:59 | INFO | P07 | ========================
+2026-06-23 16:33:59 | INFO | P07 | Executed successfully!
+2026-06-23 16:33:59 | INFO | P07 | ========================
+2026-06-23 16:35:35 | INFO | P07 | === RUN START ===
+2026-06-23 16:35:35 | INFO | P07 | project=P07
+2026-06-23 16:35:35 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:35:35 | INFO | P07 | python=3.14.5
+2026-06-23 16:35:35 | INFO | P07 | os=Windows 11
+2026-06-23 16:35:35 | INFO | P07 | shell=powershell
+2026-06-23 16:35:35 | INFO | P07 | cwd=.
+2026-06-23 16:35:35 | INFO | P07 | github_actions=False
+2026-06-23 16:35:35 | INFO | P07 | === RUN START ===
+2026-06-23 16:35:35 | INFO | P07 | project=REGRESSION
+2026-06-23 16:35:35 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:35:35 | INFO | P07 | python=3.14.5
+2026-06-23 16:35:35 | INFO | P07 | os=Windows 11
+2026-06-23 16:35:35 | INFO | P07 | shell=powershell
+2026-06-23 16:35:35 | INFO | P07 | cwd=.
+2026-06-23 16:35:35 | INFO | P07 | github_actions=False
+2026-06-23 16:35:35 | INFO | P07 | ========================
+2026-06-23 16:35:35 | INFO | P07 | START main()
+2026-06-23 16:35:35 | INFO | P07 | ========================
+2026-06-23 16:35:35 | INFO | P07 | --- Section 2: Load dataset: owid-co2-data-subset ---
+2026-06-23 16:35:35 | INFO | P07 | Loading dataset: owid-co2-data-subset
+2026-06-23 16:35:35 | INFO | P07 | Loaded: 350 rows, 14 columns
+2026-06-23 16:35:35 | INFO | P07 | --- Section 3: Prepare a modeling view (feature + target) ---
+2026-06-23 16:35:35 | INFO | P07 | Creating modeling view (dropping rows missing feature or target)
+2026-06-23 16:35:35 | DEBUG | P07 | Columns required to be non-missing: ['gdp', 'co2']
+2026-06-23 16:35:35 | INFO | P07 | Original rows: 350
+2026-06-23 16:35:35 | INFO | P07 | Model rows:    308
+2026-06-23 16:35:35 | INFO | P07 | Rows dropped:  42
+2026-06-23 16:35:35 | INFO | P07 | --- Section 4: Build feature matrix X and target vector y ---
+2026-06-23 16:35:35 | INFO | P07 | Building feature matrix X and target vector y
+2026-06-23 16:35:35 | DEBUG | P07 | X shape: (308, 1)  (rows, features)
+2026-06-23 16:35:35 | DEBUG | P07 | y shape: (308,)  (rows,)
+2026-06-23 16:35:35 | INFO | P07 | --- Section 5: Fit a straight line, exponential curve, and logarithmic curve (numpy and scikit-learn) ---
+2026-06-23 16:35:35 | INFO | P07 | Fitting a linear regression (scikit-learn)
+2026-06-23 16:35:35 | DEBUG | P07 |   slope:     3.21582e-10
+2026-06-23 16:35:35 | DEBUG | P07 |   intercept: 308.446
+2026-06-23 16:35:35 | INFO | P07 | Fitted line:
+2026-06-23 16:35:35 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:35:35 | DEBUG | P07 |   numpy check -> slope 3.21582e-10, intercept 308.446
+2026-06-23 16:35:35 | INFO | P07 | Fitting an exponential curve (scipy.optimize.curve_fit)
+2026-06-23 16:35:35 | INFO | P07 | Fitted exponential curve:
+2026-06-23 16:35:35 | INFO | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp / 1e+12)
+2026-06-23 16:35:35 | INFO | P07 | Fitting a logarithmic curve (scipy.optimize.curve_fit)
+2026-06-23 16:35:35 | INFO | P07 | Fitted logarithmic curve:
+2026-06-23 16:35:35 | INFO | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:35:35 | INFO | P07 | --- Section 6: Predict fitted values and an example value ---
+2026-06-23 16:35:35 | INFO | P07 | Computing fitted values for every observed row
+2026-06-23 16:35:35 | INFO | P07 | Predicting CO2 emissions for one example GDP value
+2026-06-23 16:35:35 | DEBUG | P07 |   example gdp: 1e+12
+2026-06-23 16:35:35 | DEBUG | P07 |   predicted co2: 630.029
+2026-06-23 16:35:35 | INFO | P07 | --- Section 7: Examine the fit (residuals, R-squared, RMSE) ---
+2026-06-23 16:35:35 | INFO | P07 | Computing residuals (actual - fitted)
+2026-06-23 16:35:35 | INFO | P07 | Fit numbers (requires interpretation):
+2026-06-23 16:35:35 | DEBUG | P07 |   R-squared: 0.9562
+2026-06-23 16:35:35 | DEBUG | P07 |   RMSE:      1352.43  (in units of CO2 emissions)
+2026-06-23 16:35:35 | DEBUG | P07 |   residual min:  -4622.56
+2026-06-23 16:35:35 | DEBUG | P07 |   residual max:  8584.86
+2026-06-23 16:35:35 | DEBUG | P07 |   residual mean: 5.90581e-14
+2026-06-23 16:35:35 | INFO | P07 | 
+CUSTOM: Update these notes and use Markdown cells to narrate what you see.
+
+How to read these (this is YOUR judgment, not the script's):
+
+ - R-squared near 1: the line accounts for most of the variation in y.
+ - R-squared near 0: the line accounts for almost none.
+ - RMSE: the typical distance between a point and the line, in y's units.
+ - Residual plot:
+   - if a straight line fits well, residuals
+     scatter randomly around 0 with no pattern.
+   - A curve,
+   - a funnel (spread that grows or shrinks),
+   - or clusters are signs a straight line
+     is NOT the right description, which can be a useful finding.
+
+There is no threshold that decides this for you.
+Look at the numbers and the plots together and
+write down what you conclude.
+
+2026-06-23 16:35:35 | INFO | P07 | Computing residuals for the exponential fit
+2026-06-23 16:35:35 | INFO | P07 | Exponential fit numbers (requires interpretation):
+2026-06-23 16:35:35 | DEBUG | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp)
+2026-06-23 16:35:35 | DEBUG | P07 |   R-squared: 0.8030
+2026-06-23 16:35:35 | DEBUG | P07 |   RMSE:      2869.13  (in units of CO2 emissions)
+2026-06-23 16:35:35 | DEBUG | P07 |   residual min:  -9585.33
+2026-06-23 16:35:35 | DEBUG | P07 |   residual max:  16617.2
+2026-06-23 16:35:35 | DEBUG | P07 |   residual mean:  -407.977
+2026-06-23 16:35:35 | INFO | P07 | Computing residuals for the logarithmic fit
+2026-06-23 16:35:35 | INFO | P07 | Logarithmic fit numbers (requires interpretation):
+2026-06-23 16:35:35 | DEBUG | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:35:35 | DEBUG | P07 |   R-squared: 0.6851
+2026-06-23 16:35:35 | DEBUG | P07 |   RMSE:      3627.04  (in units of CO2 emissions)
+2026-06-23 16:35:35 | DEBUG | P07 |   residual min:  -6452.09
+2026-06-23 16:35:35 | DEBUG | P07 |   residual max:  15955.7
+2026-06-23 16:35:35 | DEBUG | P07 |   residual mean:  1.43369e-06
+2026-06-23 16:35:35 | INFO | P07 | --- Section 8: Charts ---
+2026-06-23 16:35:35 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:35:35 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:35:35 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:35:35 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:35:35 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:35:35 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:35:36 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:35:36 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:35:36 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:35:36 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:35:36 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:35:36 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:35:36 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:35:36 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:35:36 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:35:36 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:35:36 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:35:36 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:35:36 | INFO | P07 | --- Section 9: Summary and next steps ---
+2026-06-23 16:35:36 | INFO | P07 | ========================
+2026-06-23 16:35:36 | INFO | P07 | SUMMARY
+2026-06-23 16:35:36 | INFO | P07 | ========================
+2026-06-23 16:35:36 | INFO | P07 | Dataset: owid-co2-data-subset
+2026-06-23 16:35:36 | INFO | P07 | Feature (x): gdp
+2026-06-23 16:35:36 | INFO | P07 | Target  (y): co2
+2026-06-23 16:35:36 | INFO | P07 | Original rows: 350
+2026-06-23 16:35:36 | INFO | P07 | Model rows:    308
+2026-06-23 16:35:36 | INFO | P07 | Fitted line:
+2026-06-23 16:35:36 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:35:36 | INFO | P07 | ======================
+2026-06-23 16:35:36 | INFO | P07 | Review the fit numbers (R-squared, RMSE). 
+2026-06-23 16:35:36 | INFO | P07 | Look at the fitted-line plot and the residual plot. 
+2026-06-23 16:35:36 | INFO | P07 | Decide if a `straight line` is a fair description. 
+2026-06-23 16:35:36 | INFO | P07 | If the residuals DO show a pattern (e.g. curve, funnel, clusters),
+2026-06-23 16:35:36 | INFO | P07 | then a straight line is NOT a good description. 
+2026-06-23 16:35:36 | INFO | P07 | If the residuals DO NOT show a pattern,
+2026-06-23 16:35:36 | INFO | P07 | then a straight line MIGHT be a good description. 
+2026-06-23 16:35:36 | INFO | P07 | Either way, the findings may be valuable.
+2026-06-23 16:35:36 | INFO | P07 | ======================
+2026-06-23 16:35:36 | INFO | P07 | Repeat with a different feature, or a transformed feature, 
+2026-06-23 16:35:36 | INFO | P07 | to investigate other options.
+2026-06-23 16:35:36 | INFO | P07 | ======================
+2026-06-23 16:35:36 | INFO | P07 | Include instructions and specifics in your README.md file.
+2026-06-23 16:35:36 | INFO | P07 | Write up your narrative on your docs/index.md file.
+2026-06-23 16:35:36 | INFO | P07 | Include your next step suggestions for further analysis or modeling.
+2026-06-23 16:35:36 | INFO | P07 | ======================
+2026-06-23 16:35:36 | INFO | P07 | ----- in a script, call plt.show() once at the end to display all charts -----
+2026-06-23 16:35:36 | INFO | P07 | ----- in a script, close the chart windows (with the close button) to continue  -----
+2026-06-23 16:36:17 | INFO | P07 | Linear regression workflow complete
+2026-06-23 16:36:17 | INFO | P07 | IMPORTANT: This script creates chart windows.
+2026-06-23 16:36:17 | INFO | P07 | Close any chart windows and terminate this process with CTRL+c as needed.
+2026-06-23 16:36:17 | INFO | P07 | ========================
+2026-06-23 16:36:17 | INFO | P07 | Executed successfully!
+2026-06-23 16:36:17 | INFO | P07 | ========================
+2026-06-23 16:42:36 | INFO | P07 | === RUN START ===
+2026-06-23 16:42:36 | INFO | P07 | project=P07
+2026-06-23 16:42:36 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:42:36 | INFO | P07 | python=3.14.5
+2026-06-23 16:42:36 | INFO | P07 | os=Windows 11
+2026-06-23 16:42:36 | INFO | P07 | shell=powershell
+2026-06-23 16:42:36 | INFO | P07 | cwd=.
+2026-06-23 16:42:36 | INFO | P07 | github_actions=False
+2026-06-23 16:42:36 | INFO | P07 | === RUN START ===
+2026-06-23 16:42:36 | INFO | P07 | project=REGRESSION
+2026-06-23 16:42:36 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:42:36 | INFO | P07 | python=3.14.5
+2026-06-23 16:42:36 | INFO | P07 | os=Windows 11
+2026-06-23 16:42:36 | INFO | P07 | shell=powershell
+2026-06-23 16:42:36 | INFO | P07 | cwd=.
+2026-06-23 16:42:36 | INFO | P07 | github_actions=False
+2026-06-23 16:42:36 | INFO | P07 | ========================
+2026-06-23 16:42:36 | INFO | P07 | START main()
+2026-06-23 16:42:36 | INFO | P07 | ========================
+2026-06-23 16:42:36 | INFO | P07 | --- Section 2: Load dataset: owid-co2-data-subset ---
+2026-06-23 16:42:36 | INFO | P07 | Loading dataset: owid-co2-data-subset
+2026-06-23 16:42:36 | INFO | P07 | Loaded: 350 rows, 14 columns
+2026-06-23 16:42:36 | INFO | P07 | --- Section 3: Prepare a modeling view (feature + target) ---
+2026-06-23 16:42:36 | INFO | P07 | Creating modeling view (dropping rows missing feature or target)
+2026-06-23 16:42:36 | DEBUG | P07 | Columns required to be non-missing: ['gdp', 'co2']
+2026-06-23 16:42:36 | INFO | P07 | Original rows: 350
+2026-06-23 16:42:36 | INFO | P07 | Model rows:    308
+2026-06-23 16:42:36 | INFO | P07 | Rows dropped:  42
+2026-06-23 16:42:36 | INFO | P07 | --- Section 4: Build feature matrix X and target vector y ---
+2026-06-23 16:42:36 | INFO | P07 | Building feature matrix X and target vector y
+2026-06-23 16:42:36 | DEBUG | P07 | X shape: (308, 1)  (rows, features)
+2026-06-23 16:42:36 | DEBUG | P07 | y shape: (308,)  (rows,)
+2026-06-23 16:42:36 | INFO | P07 | --- Section 5: Fit a straight line, exponential curve, and logarithmic curve (numpy and scikit-learn) ---
+2026-06-23 16:42:36 | INFO | P07 | Fitting a linear regression (scikit-learn)
+2026-06-23 16:42:36 | DEBUG | P07 |   slope:     3.21582e-10
+2026-06-23 16:42:36 | DEBUG | P07 |   intercept: 308.446
+2026-06-23 16:42:36 | INFO | P07 | Fitted line:
+2026-06-23 16:42:36 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:42:36 | DEBUG | P07 |   numpy check -> slope 3.21582e-10, intercept 308.446
+2026-06-23 16:42:36 | INFO | P07 | Fitting an exponential curve (scipy.optimize.curve_fit)
+2026-06-23 16:42:36 | INFO | P07 | Fitted exponential curve:
+2026-06-23 16:42:36 | INFO | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp / 1e+12)
+2026-06-23 16:42:36 | INFO | P07 | Fitting a logarithmic curve (scipy.optimize.curve_fit)
+2026-06-23 16:42:36 | INFO | P07 | Fitted logarithmic curve:
+2026-06-23 16:42:36 | INFO | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:42:36 | INFO | P07 | --- Section 6: Predict fitted values and an example value ---
+2026-06-23 16:42:36 | INFO | P07 | Computing fitted values for every observed row
+2026-06-23 16:42:36 | INFO | P07 | Predicting CO2 emissions for one example GDP value
+2026-06-23 16:42:36 | DEBUG | P07 |   example gdp: 1e+12
+2026-06-23 16:42:36 | DEBUG | P07 |   predicted co2: 630.029
+2026-06-23 16:42:36 | INFO | P07 | --- Section 7: Examine the fit (residuals, R-squared, RMSE) ---
+2026-06-23 16:42:36 | INFO | P07 | Computing residuals (actual - fitted)
+2026-06-23 16:42:36 | INFO | P07 | Fit numbers (requires interpretation):
+2026-06-23 16:42:36 | DEBUG | P07 |   R-squared: 0.9562
+2026-06-23 16:42:36 | DEBUG | P07 |   RMSE:      1352.43  (in units of CO2 emissions)
+2026-06-23 16:42:36 | DEBUG | P07 |   residual min:  -4622.56
+2026-06-23 16:42:36 | DEBUG | P07 |   residual max:  8584.86
+2026-06-23 16:42:36 | DEBUG | P07 |   residual mean: 5.90581e-14
+2026-06-23 16:42:36 | INFO | P07 | 
+Linear Regression Fit Numbers (requires interpretation):
+             R-squared is near 1, indicating the line accounts for most of the variation in y.
+             Residual plot shows clustering of residuals, indicating a straight line is not the right description.
+
+2026-06-23 16:42:36 | INFO | P07 | Computing residuals for the exponential fit
+2026-06-23 16:42:36 | INFO | P07 | Exponential fit numbers (requires interpretation):
+2026-06-23 16:42:36 | DEBUG | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp)
+2026-06-23 16:42:36 | DEBUG | P07 |   R-squared: 0.8030
+2026-06-23 16:42:36 | DEBUG | P07 |   RMSE:      2869.13  (in units of CO2 emissions)
+2026-06-23 16:42:36 | DEBUG | P07 |   residual min:  -9585.33
+2026-06-23 16:42:36 | DEBUG | P07 |   residual max:  16617.2
+2026-06-23 16:42:36 | DEBUG | P07 |   residual mean:  -407.977
+2026-06-23 16:42:36 | INFO | P07 | Computing residuals for the logarithmic fit
+2026-06-23 16:42:36 | INFO | P07 | Logarithmic fit numbers (requires interpretation):
+2026-06-23 16:42:36 | DEBUG | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:42:36 | DEBUG | P07 |   R-squared: 0.6851
+2026-06-23 16:42:36 | DEBUG | P07 |   RMSE:      3627.04  (in units of CO2 emissions)
+2026-06-23 16:42:36 | DEBUG | P07 |   residual min:  -6452.09
+2026-06-23 16:42:36 | DEBUG | P07 |   residual max:  15955.7
+2026-06-23 16:42:36 | DEBUG | P07 |   residual mean:  1.43369e-06
+2026-06-23 16:42:36 | INFO | P07 | --- Section 8: Charts ---
+2026-06-23 16:42:36 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:42:36 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:42:36 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:42:36 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:42:36 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:42:36 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:42:36 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:42:36 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:42:36 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:42:36 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:42:36 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:42:36 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:42:36 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:42:36 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:42:36 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:42:36 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:42:36 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:42:36 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:42:36 | INFO | P07 | --- Section 9: Summary and next steps ---
+2026-06-23 16:42:36 | INFO | P07 | ========================
+2026-06-23 16:42:36 | INFO | P07 | SUMMARY
+2026-06-23 16:42:36 | INFO | P07 | ========================
+2026-06-23 16:42:36 | INFO | P07 | Dataset: owid-co2-data-subset
+2026-06-23 16:42:36 | INFO | P07 | Feature (x): gdp
+2026-06-23 16:42:36 | INFO | P07 | Target  (y): co2
+2026-06-23 16:42:36 | INFO | P07 | Original rows: 350
+2026-06-23 16:42:36 | INFO | P07 | Model rows:    308
+2026-06-23 16:42:36 | INFO | P07 | Fitted line:
+2026-06-23 16:42:36 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:42:36 | INFO | P07 | ======================
+2026-06-23 16:42:36 | INFO | P07 | Review the fit numbers (R-squared, RMSE). 
+2026-06-23 16:42:36 | INFO | P07 | Look at the fitted-line plot and the residual plot. 
+2026-06-23 16:42:36 | INFO | P07 | Decide if a `straight line` is a fair description. 
+2026-06-23 16:42:36 | INFO | P07 | If the residuals DO show a pattern (e.g. curve, funnel, clusters),
+2026-06-23 16:42:36 | INFO | P07 | then a straight line is NOT a good description. 
+2026-06-23 16:42:36 | INFO | P07 | If the residuals DO NOT show a pattern,
+2026-06-23 16:42:36 | INFO | P07 | then a straight line MIGHT be a good description. 
+2026-06-23 16:42:36 | INFO | P07 | Either way, the findings may be valuable.
+2026-06-23 16:42:36 | INFO | P07 | ======================
+2026-06-23 16:42:36 | INFO | P07 | Repeat with a different feature, or a transformed feature, 
+2026-06-23 16:42:36 | INFO | P07 | to investigate other options.
+2026-06-23 16:42:36 | INFO | P07 | ======================
+2026-06-23 16:42:36 | INFO | P07 | Include instructions and specifics in your README.md file.
+2026-06-23 16:42:36 | INFO | P07 | Write up your narrative on your docs/index.md file.
+2026-06-23 16:42:36 | INFO | P07 | Include your next step suggestions for further analysis or modeling.
+2026-06-23 16:42:36 | INFO | P07 | ======================
+2026-06-23 16:42:36 | INFO | P07 | ----- in a script, call plt.show() once at the end to display all charts -----
+2026-06-23 16:42:36 | INFO | P07 | ----- in a script, close the chart windows (with the close button) to continue  -----
+2026-06-23 16:44:50 | INFO | P07 | Linear regression workflow complete
+2026-06-23 16:44:50 | INFO | P07 | IMPORTANT: This script creates chart windows.
+2026-06-23 16:44:50 | INFO | P07 | Close any chart windows and terminate this process with CTRL+c as needed.
+2026-06-23 16:44:50 | INFO | P07 | ========================
+2026-06-23 16:44:50 | INFO | P07 | Executed successfully!
+2026-06-23 16:44:50 | INFO | P07 | ========================
+2026-06-23 16:52:01 | INFO | P07 | === RUN START ===
+2026-06-23 16:52:01 | INFO | P07 | project=P07
+2026-06-23 16:52:01 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:52:01 | INFO | P07 | python=3.14.5
+2026-06-23 16:52:01 | INFO | P07 | os=Windows 11
+2026-06-23 16:52:01 | INFO | P07 | shell=powershell
+2026-06-23 16:52:01 | INFO | P07 | cwd=.
+2026-06-23 16:52:01 | INFO | P07 | github_actions=False
+2026-06-23 16:52:01 | INFO | P07 | === RUN START ===
+2026-06-23 16:52:01 | INFO | P07 | project=REGRESSION
+2026-06-23 16:52:01 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:52:01 | INFO | P07 | python=3.14.5
+2026-06-23 16:52:01 | INFO | P07 | os=Windows 11
+2026-06-23 16:52:01 | INFO | P07 | shell=powershell
+2026-06-23 16:52:01 | INFO | P07 | cwd=.
+2026-06-23 16:52:01 | INFO | P07 | github_actions=False
+2026-06-23 16:52:01 | INFO | P07 | ========================
+2026-06-23 16:52:01 | INFO | P07 | START main()
+2026-06-23 16:52:01 | INFO | P07 | ========================
+2026-06-23 16:52:01 | INFO | P07 | --- Section 2: Load dataset: owid-co2-data-subset ---
+2026-06-23 16:52:01 | INFO | P07 | Loading dataset: owid-co2-data-subset
+2026-06-23 16:52:01 | INFO | P07 | Loaded: 350 rows, 14 columns
+2026-06-23 16:52:01 | INFO | P07 | --- Section 3: Prepare a modeling view (feature + target) ---
+2026-06-23 16:52:01 | INFO | P07 | Creating modeling view (dropping rows missing feature or target)
+2026-06-23 16:52:01 | DEBUG | P07 | Columns required to be non-missing: ['gdp', 'co2']
+2026-06-23 16:52:01 | INFO | P07 | Original rows: 350
+2026-06-23 16:52:01 | INFO | P07 | Model rows:    308
+2026-06-23 16:52:01 | INFO | P07 | Rows dropped:  42
+2026-06-23 16:52:01 | INFO | P07 | --- Section 4: Build feature matrix X and target vector y ---
+2026-06-23 16:52:01 | INFO | P07 | Building feature matrix X and target vector y
+2026-06-23 16:52:01 | DEBUG | P07 | X shape: (308, 1)  (rows, features)
+2026-06-23 16:52:01 | DEBUG | P07 | y shape: (308,)  (rows,)
+2026-06-23 16:52:01 | INFO | P07 | --- Section 5: Fit a straight line, exponential curve, and logarithmic curve (numpy and scikit-learn) ---
+2026-06-23 16:52:01 | INFO | P07 | Fitting a linear regression (scikit-learn)
+2026-06-23 16:52:01 | DEBUG | P07 |   slope:     3.21582e-10
+2026-06-23 16:52:01 | DEBUG | P07 |   intercept: 308.446
+2026-06-23 16:52:01 | INFO | P07 | Fitted line:
+2026-06-23 16:52:01 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:52:01 | DEBUG | P07 |   numpy check -> slope 3.21582e-10, intercept 308.446
+2026-06-23 16:52:01 | INFO | P07 | Fitting an exponential curve (scipy.optimize.curve_fit)
+2026-06-23 16:52:01 | INFO | P07 | Fitted exponential curve:
+2026-06-23 16:52:01 | INFO | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp / 1e+12)
+2026-06-23 16:52:01 | INFO | P07 | Fitting a logarithmic curve (scipy.optimize.curve_fit)
+2026-06-23 16:52:01 | INFO | P07 | Fitted logarithmic curve:
+2026-06-23 16:52:01 | INFO | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:52:01 | INFO | P07 | --- Section 6: Predict fitted values and an example value ---
+2026-06-23 16:52:01 | INFO | P07 | Computing fitted values for every observed row
+2026-06-23 16:52:01 | INFO | P07 | Predicting CO2 emissions for one example GDP value
+2026-06-23 16:52:01 | DEBUG | P07 |   example gdp: 1e+12
+2026-06-23 16:52:01 | DEBUG | P07 |   predicted co2: 630.029
+2026-06-23 16:52:01 | INFO | P07 | --- Section 7: Examine the fit (residuals, R-squared, RMSE) ---
+2026-06-23 16:52:01 | INFO | P07 | Computing residuals (actual - fitted)
+2026-06-23 16:52:01 | INFO | P07 | Fit numbers (requires interpretation):
+2026-06-23 16:52:01 | DEBUG | P07 |   R-squared: 0.9562
+2026-06-23 16:52:01 | DEBUG | P07 |   RMSE:      1352.43  (in units of CO2 emissions)
+2026-06-23 16:52:01 | DEBUG | P07 |   residual min:  -4622.56
+2026-06-23 16:52:01 | DEBUG | P07 |   residual max:  8584.86
+2026-06-23 16:52:01 | DEBUG | P07 |   residual mean: 5.90581e-14
+2026-06-23 16:52:01 | INFO | P07 | 
+Linear Regression Fit Numbers (requires interpretation):
+             R-squared is near 1, indicating the line accounts for most of the variation in y.
+             Residual plot shows clustering of residuals, indicating a straight line is not the right description.
+
+2026-06-23 16:52:01 | INFO | P07 | Computing residuals for the exponential fit
+2026-06-23 16:52:01 | INFO | P07 | Exponential fit numbers (requires interpretation):
+2026-06-23 16:52:01 | DEBUG | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp)
+2026-06-23 16:52:01 | DEBUG | P07 |   R-squared: 0.8030
+2026-06-23 16:52:01 | DEBUG | P07 |   RMSE:      2869.13  (in units of CO2 emissions)
+2026-06-23 16:52:01 | DEBUG | P07 |   residual min:  -9585.33
+2026-06-23 16:52:01 | DEBUG | P07 |   residual max:  16617.2
+2026-06-23 16:52:01 | DEBUG | P07 |   residual mean:  -407.977
+2026-06-23 16:52:01 | INFO | P07 | 
+Exponential Regression Fit Numbers (requires interpretation):
+             R-squared is farther from 1 than linear regression, indicating the curve accounts for a some of the variation in y.
+             Residual plot shows clustering of residuals, indicating an exponential curve line is not the right description.
+
+2026-06-23 16:52:01 | INFO | P07 | Computing residuals for the logarithmic fit
+2026-06-23 16:52:01 | INFO | P07 | Logarithmic fit numbers (requires interpretation):
+2026-06-23 16:52:01 | DEBUG | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:52:01 | DEBUG | P07 |   R-squared: 0.6851
+2026-06-23 16:52:01 | DEBUG | P07 |   RMSE:      3627.04  (in units of CO2 emissions)
+2026-06-23 16:52:01 | DEBUG | P07 |   residual min:  -6452.09
+2026-06-23 16:52:01 | DEBUG | P07 |   residual max:  15955.7
+2026-06-23 16:52:01 | DEBUG | P07 |   residual mean:  1.43369e-06
+2026-06-23 16:52:01 | INFO | P07 | 
+Logarithmic Regression Fit Numbers (requires interpretation):
+             R-squared is far from 1, indicating the curve does not account for most of the variation in y.
+             Residual plot shows clustering of residuals, indicating a logarithmic curve is not the right description.
+
+2026-06-23 16:52:01 | INFO | P07 | --- Section 8: Charts ---
+2026-06-23 16:52:01 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:52:01 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:52:01 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:52:01 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:52:01 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:52:01 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:52:01 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:52:01 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:52:01 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:52:01 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:52:01 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:52:01 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:52:01 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:52:01 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:52:01 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:52:02 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:52:02 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:52:02 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:52:02 | INFO | P07 | --- Section 9: Summary and next steps ---
+2026-06-23 16:52:02 | INFO | P07 | ========================
+2026-06-23 16:52:02 | INFO | P07 | SUMMARY
+2026-06-23 16:52:02 | INFO | P07 | ========================
+2026-06-23 16:52:02 | INFO | P07 | Dataset: owid-co2-data-subset
+2026-06-23 16:52:02 | INFO | P07 | Feature (x): gdp
+2026-06-23 16:52:02 | INFO | P07 | Target  (y): co2
+2026-06-23 16:52:02 | INFO | P07 | Original rows: 350
+2026-06-23 16:52:02 | INFO | P07 | Model rows:    308
+2026-06-23 16:52:02 | INFO | P07 | Fitted line:
+2026-06-23 16:52:02 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:52:02 | INFO | P07 | ======================
+2026-06-23 16:52:02 | INFO | P07 | Review the fit numbers (R-squared, RMSE). 
+2026-06-23 16:52:02 | INFO | P07 | Look at the fitted-line plot and the residual plot. 
+2026-06-23 16:52:02 | INFO | P07 | Decide if a `straight line` is a fair description. 
+2026-06-23 16:52:02 | INFO | P07 | If the residuals DO show a pattern (e.g. curve, funnel, clusters),
+2026-06-23 16:52:02 | INFO | P07 | then a straight line is NOT a good description. 
+2026-06-23 16:52:02 | INFO | P07 | If the residuals DO NOT show a pattern,
+2026-06-23 16:52:02 | INFO | P07 | then a straight line MIGHT be a good description. 
+2026-06-23 16:52:02 | INFO | P07 | Either way, the findings may be valuable.
+2026-06-23 16:52:02 | INFO | P07 | ======================
+2026-06-23 16:52:02 | INFO | P07 | Repeat with a different feature, or a transformed feature, 
+2026-06-23 16:52:02 | INFO | P07 | to investigate other options.
+2026-06-23 16:52:02 | INFO | P07 | ======================
+2026-06-23 16:52:02 | INFO | P07 | Include instructions and specifics in your README.md file.
+2026-06-23 16:52:02 | INFO | P07 | Write up your narrative on your docs/index.md file.
+2026-06-23 16:52:02 | INFO | P07 | Include your next step suggestions for further analysis or modeling.
+2026-06-23 16:52:02 | INFO | P07 | ======================
+2026-06-23 16:52:02 | INFO | P07 | ----- in a script, call plt.show() once at the end to display all charts -----
+2026-06-23 16:52:02 | INFO | P07 | ----- in a script, close the chart windows (with the close button) to continue  -----
+2026-06-23 16:52:12 | INFO | P07 | Linear regression workflow complete
+2026-06-23 16:52:12 | INFO | P07 | IMPORTANT: This script creates chart windows.
+2026-06-23 16:52:12 | INFO | P07 | Close any chart windows and terminate this process with CTRL+c as needed.
+2026-06-23 16:52:12 | INFO | P07 | ========================
+2026-06-23 16:52:12 | INFO | P07 | Executed successfully!
+2026-06-23 16:52:12 | INFO | P07 | ========================
+2026-06-23 16:52:48 | INFO | P07 | === RUN START ===
+2026-06-23 16:52:48 | INFO | P07 | project=P07
+2026-06-23 16:52:48 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:52:48 | INFO | P07 | python=3.14.5
+2026-06-23 16:52:48 | INFO | P07 | os=Windows 11
+2026-06-23 16:52:48 | INFO | P07 | shell=powershell
+2026-06-23 16:52:48 | INFO | P07 | cwd=.
+2026-06-23 16:52:48 | INFO | P07 | github_actions=False
+2026-06-23 16:52:48 | INFO | P07 | === RUN START ===
+2026-06-23 16:52:48 | INFO | P07 | project=REGRESSION
+2026-06-23 16:52:48 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:52:48 | INFO | P07 | python=3.14.5
+2026-06-23 16:52:48 | INFO | P07 | os=Windows 11
+2026-06-23 16:52:48 | INFO | P07 | shell=powershell
+2026-06-23 16:52:48 | INFO | P07 | cwd=.
+2026-06-23 16:52:48 | INFO | P07 | github_actions=False
+2026-06-23 16:52:48 | INFO | P07 | ========================
+2026-06-23 16:52:48 | INFO | P07 | START main()
+2026-06-23 16:52:48 | INFO | P07 | ========================
+2026-06-23 16:52:48 | INFO | P07 | --- Section 2: Load dataset: owid-co2-data-subset ---
+2026-06-23 16:52:48 | INFO | P07 | Loading dataset: owid-co2-data-subset
+2026-06-23 16:52:48 | INFO | P07 | Loaded: 350 rows, 14 columns
+2026-06-23 16:52:48 | INFO | P07 | --- Section 3: Prepare a modeling view (feature + target) ---
+2026-06-23 16:52:48 | INFO | P07 | Creating modeling view (dropping rows missing feature or target)
+2026-06-23 16:52:48 | DEBUG | P07 | Columns required to be non-missing: ['gdp', 'co2']
+2026-06-23 16:52:48 | INFO | P07 | Original rows: 350
+2026-06-23 16:52:48 | INFO | P07 | Model rows:    308
+2026-06-23 16:52:48 | INFO | P07 | Rows dropped:  42
+2026-06-23 16:52:48 | INFO | P07 | --- Section 4: Build feature matrix X and target vector y ---
+2026-06-23 16:52:48 | INFO | P07 | Building feature matrix X and target vector y
+2026-06-23 16:52:48 | DEBUG | P07 | X shape: (308, 1)  (rows, features)
+2026-06-23 16:52:48 | DEBUG | P07 | y shape: (308,)  (rows,)
+2026-06-23 16:52:48 | INFO | P07 | --- Section 5: Fit a straight line, exponential curve, and logarithmic curve (numpy and scikit-learn) ---
+2026-06-23 16:52:48 | INFO | P07 | Fitting a linear regression (scikit-learn)
+2026-06-23 16:52:48 | DEBUG | P07 |   slope:     3.21582e-10
+2026-06-23 16:52:48 | DEBUG | P07 |   intercept: 308.446
+2026-06-23 16:52:48 | INFO | P07 | Fitted line:
+2026-06-23 16:52:48 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:52:48 | DEBUG | P07 |   numpy check -> slope 3.21582e-10, intercept 308.446
+2026-06-23 16:52:48 | INFO | P07 | Fitting an exponential curve (scipy.optimize.curve_fit)
+2026-06-23 16:52:48 | INFO | P07 | Fitted exponential curve:
+2026-06-23 16:52:48 | INFO | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp / 1e+12)
+2026-06-23 16:52:48 | INFO | P07 | Fitting a logarithmic curve (scipy.optimize.curve_fit)
+2026-06-23 16:52:48 | INFO | P07 | Fitted logarithmic curve:
+2026-06-23 16:52:48 | INFO | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:52:48 | INFO | P07 | --- Section 6: Predict fitted values and an example value ---
+2026-06-23 16:52:48 | INFO | P07 | Computing fitted values for every observed row
+2026-06-23 16:52:48 | INFO | P07 | Predicting CO2 emissions for one example GDP value
+2026-06-23 16:52:48 | DEBUG | P07 |   example gdp: 1e+12
+2026-06-23 16:52:48 | DEBUG | P07 |   predicted co2: 630.029
+2026-06-23 16:52:48 | INFO | P07 | --- Section 7: Examine the fit (residuals, R-squared, RMSE) ---
+2026-06-23 16:52:48 | INFO | P07 | Computing residuals (actual - fitted)
+2026-06-23 16:52:48 | INFO | P07 | Fit numbers (requires interpretation):
+2026-06-23 16:52:48 | DEBUG | P07 |   R-squared: 0.9562
+2026-06-23 16:52:48 | DEBUG | P07 |   RMSE:      1352.43  (in units of CO2 emissions)
+2026-06-23 16:52:48 | DEBUG | P07 |   residual min:  -4622.56
+2026-06-23 16:52:48 | DEBUG | P07 |   residual max:  8584.86
+2026-06-23 16:52:48 | DEBUG | P07 |   residual mean: 5.90581e-14
+2026-06-23 16:52:48 | INFO | P07 | 
+Linear Regression Fit Numbers (requires interpretation):
+             R-squared is near 1, indicating the line accounts for most of the variation in y.
+             Residual plot shows clustering of residuals, indicating a straight line is not the right description.
+
+2026-06-23 16:52:48 | INFO | P07 | Computing residuals for the exponential fit
+2026-06-23 16:52:48 | INFO | P07 | Exponential fit numbers (requires interpretation):
+2026-06-23 16:52:48 | DEBUG | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp)
+2026-06-23 16:52:48 | DEBUG | P07 |   R-squared: 0.8030
+2026-06-23 16:52:48 | DEBUG | P07 |   RMSE:      2869.13  (in units of CO2 emissions)
+2026-06-23 16:52:48 | DEBUG | P07 |   residual min:  -9585.33
+2026-06-23 16:52:48 | DEBUG | P07 |   residual max:  16617.2
+2026-06-23 16:52:48 | DEBUG | P07 |   residual mean:  -407.977
+2026-06-23 16:52:48 | INFO | P07 | 
+Exponential Regression Fit Numbers (requires interpretation):
+             R-squared is farther from 1 than linear regression, indicating the curve accounts for a some of the variation in y.
+             Residual plot shows clustering of residuals, indicating an exponential curve line is not the right description.
+
+2026-06-23 16:52:48 | INFO | P07 | Computing residuals for the logarithmic fit
+2026-06-23 16:52:48 | INFO | P07 | Logarithmic fit numbers (requires interpretation):
+2026-06-23 16:52:48 | DEBUG | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:52:48 | DEBUG | P07 |   R-squared: 0.6851
+2026-06-23 16:52:48 | DEBUG | P07 |   RMSE:      3627.04  (in units of CO2 emissions)
+2026-06-23 16:52:48 | DEBUG | P07 |   residual min:  -6452.09
+2026-06-23 16:52:48 | DEBUG | P07 |   residual max:  15955.7
+2026-06-23 16:52:48 | DEBUG | P07 |   residual mean:  1.43369e-06
+2026-06-23 16:52:48 | INFO | P07 | 
+Logarithmic Regression Fit Numbers (requires interpretation):
+             R-squared is far from 1, indicating the curve does not account for most of the variation in y.
+             Residual plot shows clustering of residuals, indicating a logarithmic curve is not the right description.
+
+2026-06-23 16:52:48 | INFO | P07 | --- Section 8: Charts ---
+2026-06-23 16:52:48 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:52:48 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:52:48 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:52:49 | INFO | P07 | --- Section 9: Summary and next steps ---
+2026-06-23 16:52:49 | INFO | P07 | ========================
+2026-06-23 16:52:49 | INFO | P07 | SUMMARY
+2026-06-23 16:52:49 | INFO | P07 | ========================
+2026-06-23 16:52:49 | INFO | P07 | Dataset: owid-co2-data-subset
+2026-06-23 16:52:49 | INFO | P07 | Feature (x): gdp
+2026-06-23 16:52:49 | INFO | P07 | Target  (y): co2
+2026-06-23 16:52:49 | INFO | P07 | Original rows: 350
+2026-06-23 16:52:49 | INFO | P07 | Model rows:    308
+2026-06-23 16:52:49 | INFO | P07 | Fitted line:
+2026-06-23 16:52:49 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:52:49 | INFO | P07 | ======================
+2026-06-23 16:52:49 | INFO | P07 | Review the fit numbers (R-squared, RMSE). 
+2026-06-23 16:52:49 | INFO | P07 | Look at the fitted-line plot and the residual plot. 
+2026-06-23 16:52:49 | INFO | P07 | Decide if a `straight line` is a fair description. 
+2026-06-23 16:52:49 | INFO | P07 | If the residuals DO show a pattern (e.g. curve, funnel, clusters),
+2026-06-23 16:52:49 | INFO | P07 | then a straight line is NOT a good description. 
+2026-06-23 16:52:49 | INFO | P07 | If the residuals DO NOT show a pattern,
+2026-06-23 16:52:49 | INFO | P07 | then a straight line MIGHT be a good description. 
+2026-06-23 16:52:49 | INFO | P07 | Either way, the findings may be valuable.
+2026-06-23 16:52:49 | INFO | P07 | ======================
+2026-06-23 16:52:49 | INFO | P07 | Repeat with a different feature, or a transformed feature, 
+2026-06-23 16:52:49 | INFO | P07 | to investigate other options.
+2026-06-23 16:52:49 | INFO | P07 | ======================
+2026-06-23 16:52:49 | INFO | P07 | Include instructions and specifics in your README.md file.
+2026-06-23 16:52:49 | INFO | P07 | Write up your narrative on your docs/index.md file.
+2026-06-23 16:52:49 | INFO | P07 | Include your next step suggestions for further analysis or modeling.
+2026-06-23 16:52:49 | INFO | P07 | ======================
+2026-06-23 16:52:49 | INFO | P07 | ----- in a script, call plt.show() once at the end to display all charts -----
+2026-06-23 16:52:49 | INFO | P07 | ----- in a script, close the chart windows (with the close button) to continue  -----
+2026-06-23 16:52:52 | INFO | P07 | Regression workflow complete
+2026-06-23 16:52:52 | INFO | P07 | IMPORTANT: This script creates chart windows.
+2026-06-23 16:52:52 | INFO | P07 | Close any chart windows and terminate this process with CTRL+c as needed.
+2026-06-23 16:52:52 | INFO | P07 | ========================
+2026-06-23 16:52:52 | INFO | P07 | Executed successfully!
+2026-06-23 16:52:52 | INFO | P07 | ========================
+2026-06-23 16:57:51 | INFO | P07 | === RUN START ===
+2026-06-23 16:57:51 | INFO | P07 | project=P07
+2026-06-23 16:57:51 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:57:51 | INFO | P07 | python=3.14.5
+2026-06-23 16:57:51 | INFO | P07 | os=Windows 11
+2026-06-23 16:57:51 | INFO | P07 | shell=powershell
+2026-06-23 16:57:51 | INFO | P07 | cwd=.
+2026-06-23 16:57:51 | INFO | P07 | github_actions=False
+2026-06-23 16:57:51 | INFO | P07 | === RUN START ===
+2026-06-23 16:57:51 | INFO | P07 | project=P07
+2026-06-23 16:57:51 | INFO | P07 | repo_dir=datafun-07-regression
+2026-06-23 16:57:51 | INFO | P07 | python=3.14.5
+2026-06-23 16:57:51 | INFO | P07 | os=Windows 11
+2026-06-23 16:57:51 | INFO | P07 | shell=powershell
+2026-06-23 16:57:51 | INFO | P07 | cwd=.
+2026-06-23 16:57:51 | INFO | P07 | github_actions=False

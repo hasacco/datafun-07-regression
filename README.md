@@ -104,6 +104,7 @@ uv run python -m datafun.app_penguins_case
 # run the co2 example: is there a linear relationship?
 # the line fits poorly; why?  what would you change?
 uv run python -m datafun.app_co2_case
+uv run python -m datafun.app_co2_hasacco
 
 # do chores
 uv run python -m pyright
@@ -212,3 +213,114 @@ Additional instructions, terms, and project notes:
 ## License
 
 [MIT](./LICENSE)
+
+## Modification 6-23-26
+
+For the modification, I chose to try different types of regressions on the CO2 data. The residuals from the linear regression showed clustering, so I chose to see if another type of regression fit the data better. I added an exponential regression and a logarithmic regression, as well as plots showing these functions graphed on the data and residuals of each type of regression. The exponential regression had a lower R-squared value than the linear regression, looked to be a worse fit, and still had clustered residuals. The logarithmic regression had an even lower R-squared value than the exponential regression, appeared to be a worse fit, and still had clustered residuals.
+
+## Example Output 6-23-26
+
+[Exponential Regression](/docs/images/Figure_3_hasacco_expreg.png)
+
+[Exponential Regression Residuals](/docs/images/Figure_4_hasacco_expregresiduals.png)
+
+[Logarithmic Regression](/docs/images/Figure_5_hasacco_logreg.png)
+
+[Logarithmic Regression Residuals](/docs/images/Figure_5_hasacco_logreg.png)
+
+```shell
+2026-06-23 16:52:48 | INFO | P07 | --- Section 7: Examine the fit (residuals, R-squared, RMSE) ---
+2026-06-23 16:52:48 | INFO | P07 | Computing residuals (actual - fitted)
+2026-06-23 16:52:48 | INFO | P07 | Fit numbers (requires interpretation):
+2026-06-23 16:52:48 | DEBUG | P07 |   R-squared: 0.9562
+2026-06-23 16:52:48 | DEBUG | P07 |   RMSE:      1352.43  (in units of CO2 emissions)
+2026-06-23 16:52:48 | DEBUG | P07 |   residual min:  -4622.56
+2026-06-23 16:52:48 | DEBUG | P07 |   residual max:  8584.86
+2026-06-23 16:52:48 | DEBUG | P07 |   residual mean: 5.90581e-14
+2026-06-23 16:52:48 | INFO | P07 |
+Linear Regression Fit Numbers (requires interpretation):
+             R-squared is near 1, indicating the line accounts for most of the variation in y.
+             Residual plot shows clustering of residuals, indicating a straight line is not the right description.
+
+2026-06-23 16:52:48 | INFO | P07 | Computing residuals for the exponential fit
+2026-06-23 16:52:48 | INFO | P07 | Exponential fit numbers (requires interpretation):
+2026-06-23 16:52:48 | DEBUG | P07 |   co2 = 2229.28 * exp(0.0234479 * gdp)
+2026-06-23 16:52:48 | DEBUG | P07 |   R-squared: 0.8030
+2026-06-23 16:52:48 | DEBUG | P07 |   RMSE:      2869.13  (in units of CO2 emissions)
+2026-06-23 16:52:48 | DEBUG | P07 |   residual min:  -9585.33
+2026-06-23 16:52:48 | DEBUG | P07 |   residual max:  16617.2
+2026-06-23 16:52:48 | DEBUG | P07 |   residual mean:  -407.977
+2026-06-23 16:52:48 | INFO | P07 |
+Exponential Regression Fit Numbers (requires interpretation):
+             R-squared is farther from 1 than linear regression, indicating the curve accounts for a some of the variation in y.
+             Residual plot shows clustering of residuals, indicating an exponential curve line is not the right description.
+
+2026-06-23 16:52:48 | INFO | P07 | Computing residuals for the logarithmic fit
+2026-06-23 16:52:48 | INFO | P07 | Logarithmic fit numbers (requires interpretation):
+2026-06-23 16:52:48 | DEBUG | P07 |   co2 = 5301.81 * log(4.49518e-13 * gdp)
+2026-06-23 16:52:48 | DEBUG | P07 |   R-squared: 0.6851
+2026-06-23 16:52:48 | DEBUG | P07 |   RMSE:      3627.04  (in units of CO2 emissions)
+2026-06-23 16:52:48 | DEBUG | P07 |   residual min:  -6452.09
+2026-06-23 16:52:48 | DEBUG | P07 |   residual max:  15955.7
+2026-06-23 16:52:48 | DEBUG | P07 |   residual mean:  1.43369e-06
+2026-06-23 16:52:48 | INFO | P07 |
+Logarithmic Regression Fit Numbers (requires interpretation):
+             R-squared is far from 1, indicating the curve does not account for most of the variation in y.
+             Residual plot shows clustering of residuals, indicating a logarithmic curve is not the right description.
+
+2026-06-23 16:52:48 | INFO | P07 | --- Section 8: Charts ---
+2026-06-23 16:52:48 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:52:48 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:52:48 | INFO | P07 | ---- Creating Scatter Plot with Fitted Line ----------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set x to GDP -----------------------
+2026-06-23 16:52:48 | INFO | P07 | ----   Set y to CO2 emissions -------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------ Creating Residual Plot --------------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set x to GDP ----------------------
+2026-06-23 16:52:48 | INFO | P07 | ------   Set y to the residual (actual - fitted) -------
+2026-06-23 16:52:49 | INFO | P07 | --- Section 9: Summary and next steps ---
+2026-06-23 16:52:49 | INFO | P07 | ========================
+2026-06-23 16:52:49 | INFO | P07 | SUMMARY
+2026-06-23 16:52:49 | INFO | P07 | ========================
+2026-06-23 16:52:49 | INFO | P07 | Dataset: owid-co2-data-subset
+2026-06-23 16:52:49 | INFO | P07 | Feature (x): gdp
+2026-06-23 16:52:49 | INFO | P07 | Target  (y): co2
+2026-06-23 16:52:49 | INFO | P07 | Original rows: 350
+2026-06-23 16:52:49 | INFO | P07 | Model rows:    308
+2026-06-23 16:52:49 | INFO | P07 | Fitted line:
+2026-06-23 16:52:49 | INFO | P07 |   co2 = 3.21582e-10 * gdp + 308.446
+2026-06-23 16:52:49 | INFO | P07 | ======================
+2026-06-23 16:52:49 | INFO | P07 | Review the fit numbers (R-squared, RMSE).
+2026-06-23 16:52:49 | INFO | P07 | Look at the fitted-line plot and the residual plot.
+2026-06-23 16:52:49 | INFO | P07 | Decide if a `straight line` is a fair description.
+2026-06-23 16:52:49 | INFO | P07 | If the residuals DO show a pattern (e.g. curve, funnel, clusters),
+2026-06-23 16:52:49 | INFO | P07 | then a straight line is NOT a good description.
+2026-06-23 16:52:49 | INFO | P07 | If the residuals DO NOT show a pattern,
+2026-06-23 16:52:49 | INFO | P07 | then a straight line MIGHT be a good description.
+2026-06-23 16:52:49 | INFO | P07 | Either way, the findings may be valuable.
+2026-06-23 16:52:49 | INFO | P07 | ======================
+2026-06-23 16:52:49 | INFO | P07 | Repeat with a different feature, or a transformed feature,
+2026-06-23 16:52:49 | INFO | P07 | to investigate other options.
+2026-06-23 16:52:49 | INFO | P07 | ======================
+2026-06-23 16:52:49 | INFO | P07 | Include instructions and specifics in your README.md file.
+2026-06-23 16:52:49 | INFO | P07 | Write up your narrative on your docs/index.md file.
+2026-06-23 16:52:49 | INFO | P07 | Include your next step suggestions for further analysis or modeling.
+2026-06-23 16:52:49 | INFO | P07 | ======================
+2026-06-23 16:52:49 | INFO | P07 | ----- in a script, call plt.show() once at the end to display all charts -----
+2026-06-23 16:52:49 | INFO | P07 | ----- in a script, close the chart windows (with the close button) to continue  -----
+2026-06-23 16:52:52 | INFO | P07 | Regression workflow complete
+2026-06-23 16:52:52 | INFO | P07 | IMPORTANT: This script creates chart windows.
+2026-06-23 16:52:52 | INFO | P07 | Close any chart windows and terminate this process with CTRL+c as needed.
+2026-06-23 16:52:52 | INFO | P07 | ========================
+2026-06-23 16:52:52 | INFO | P07 | Executed successfully!
+2026-06-23 16:52:52 | INFO | P07 | ========================
+```

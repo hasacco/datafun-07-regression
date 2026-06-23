@@ -23,7 +23,8 @@ dependencies = [
     "pandas",    # tabular data manipulation
     "scikit-learn", # machine learning library for regression and more
     "seaborn",   # statistical data visualization built on matplotlib
-    "matplotlib" # plotting library for static, animated, and interactive visualizations in Python
+    "matplotlib", # plotting library for static, animated, and interactive visualizations in Python
+    "scipy"
 ]
 
 [project.optional-dependencies]
