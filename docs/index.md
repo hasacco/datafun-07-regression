@@ -22,3 +22,17 @@ to get these projects running on your machine.
 The API page is not always easy to read at first,
 but it becomes useful as you get more comfortable with project structure,
 modules, functions, and docstrings.
+
+## Custom Project
+
+### Basis
+
+I began with the CO2 dataset and Dr. Case's example.
+
+### Phase 4 Modifications
+
+I added other types of regressions (exponential and logarithmic) to try on the CO2 data since the linear regression did not appear to be a great fit. I verified it worked by looking at the results in project.log and analyzing the scatterplots with regressions.
+
+### Phase 5 Custom Project
+
+I chose to further expand on the CO2 dataset project. I chose to remove the other types of regressions by commenting them out (so I could still use them in the future if I chose to), and to split the data analyzed by the linear regression into years. This allows me to see if a linear regression would fit each year's data and how the equations for those regressions differ. This modification created a significant amount of output into project.log to be analyzed as well as 66 scatterplots that open in separate windows to be analyzed. This makes the project run a lot slower than I anticipated, locking up my machine on the first run. I have not tried to run with all types of regressions, as that would triple the amount of data output and windows opened. However, each type of regression could be commented out to run each type separately, limiting the load on the machine. This strategy could be applied to any dataset that includes variables measured over time.

@@ -324,3 +324,7 @@ Logarithmic Regression Fit Numbers (requires interpretation):
 2026-06-23 16:52:52 | INFO | P07 | Executed successfully!
 2026-06-23 16:52:52 | INFO | P07 | ========================
 ```
+
+## Phase 5 - Custom Project
+
+For the custom project, I chose to remove the other types of regressions by commenting them out (so I could still use them in the future if I chose to), and to split the data analyzed by the linear regression into years. This allows me to see if a linear regression would fit each year's data and how the equations for those regressions differ. This modification created a significant amount of output into project.log to be analyzed as well as 66 scatterplots that open in separate windows to be analyzed. (See project.log for example output, as it is very large.) This makes the project run a lot slower than I anticipated, locking up my machine on the first run. I have not tried to run with all types of regressions, as that would triple the amount of data output and windows opened. However, each type of regression could be commented out to run each type separately, limiting the load on the machine.
