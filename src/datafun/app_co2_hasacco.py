@@ -46,7 +46,6 @@ from matplotlib.axes import Axes
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy.optimize import curve_fit
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 
@@ -264,66 +263,66 @@ def fit_line(X: np.ndarray, y: np.ndarray) -> LinearRegression:
     return model
 
 
-def exp_func(x: np.ndarray, a: float, b: float) -> np.ndarray:
-    """Return y = a * exp(b * x_scaled) for curve fitting."""
-    x_scaled: np.ndarray = x / X_SCALE
-    return a * np.exp(b * x_scaled)
+# def exp_func(x: np.ndarray, a: float, b: float) -> np.ndarray:
+#     """Return y = a * exp(b * x_scaled) for curve fitting."""
+#     x_scaled: np.ndarray = x / X_SCALE
+#     return a * np.exp(b * x_scaled)
 
 
-def fit_exponential(X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """Fit an exponential curve y = a * exp(b * x) using scipy.optimize.curve_fit."""
-    LOG.info("Fitting an exponential curve (scipy.optimize.curve_fit)")
+# def fit_exponential(X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+#     """Fit an exponential curve y = a * exp(b * x) using scipy.optimize.curve_fit."""
+#     LOG.info("Fitting an exponential curve (scipy.optimize.curve_fit)")
 
-    x_flat: np.ndarray = X.ravel()
-    x_scaled: np.ndarray = x_flat / X_SCALE
+#     x_flat: np.ndarray = X.ravel()
+#     x_scaled: np.ndarray = x_flat / X_SCALE
 
-    y_positive: np.ndarray = y[y > 0]
-    x_positive: np.ndarray = x_scaled[y > 0]
-    if y_positive.size == 0:
-        raise ValueError("Exponential fit requires positive target values")
+#     y_positive: np.ndarray = y[y > 0]
+#     x_positive: np.ndarray = x_scaled[y > 0]
+#     if y_positive.size == 0:
+#         raise ValueError("Exponential fit requires positive target values")
 
-    log_y: np.ndarray = np.log(y_positive)
-    b_guess, log_a_guess = np.polyfit(x_positive, log_y, 1)
-    a_guess: float = float(np.exp(log_a_guess))
-    p0: tuple[float, float] = (a_guess, float(b_guess))
+#     log_y: np.ndarray = np.log(y_positive)
+#     b_guess, log_a_guess = np.polyfit(x_positive, log_y, 1)
+#     a_guess: float = float(np.exp(log_a_guess))
+#     p0: tuple[float, float] = (a_guess, float(b_guess))
 
-    params, _ = curve_fit(exp_func, x_flat, y, p0=p0, maxfev=10000)
+#     params, _ = curve_fit(exp_func, x_flat, y, p0=p0, maxfev=10000)
 
-    a: float = float(params[0])
-    b: float = float(params[1])
-    LOG.info("Fitted exponential curve:")
-    LOG.info(f"  {TARGET_COL} = {a:.6g} * exp({b:.6g} * {FEATURE_COL} / {X_SCALE:.6g})")
+#     a: float = float(params[0])
+#     b: float = float(params[1])
+#     LOG.info("Fitted exponential curve:")
+#     LOG.info(f"  {TARGET_COL} = {a:.6g} * exp({b:.6g} * {FEATURE_COL} / {X_SCALE:.6g})")
 
-    y_hat: np.ndarray = exp_func(x_flat, a, b)
-    return params, y_hat
+#     y_hat: np.ndarray = exp_func(x_flat, a, b)
+#     return params, y_hat
 
 
-def fit_logarithmic(X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """Fit a logarithmic curve y = a * log(b * x) using scipy.optimize.curve_fit."""
-    LOG.info("Fitting a logarithmic curve (scipy.optimize.curve_fit)")
+# def fit_logarithmic(X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+#     """Fit a logarithmic curve y = a * log(b * x) using scipy.optimize.curve_fit."""
+#     LOG.info("Fitting a logarithmic curve (scipy.optimize.curve_fit)")
 
-    x_flat: np.ndarray = X.ravel()
+#     x_flat: np.ndarray = X.ravel()
 
-    # Ensure all x values are positive for logarithmic fitting
-    if np.any(x_flat <= 0):
-        raise ValueError("Logarithmic fit requires positive feature values")
+#     # Ensure all x values are positive for logarithmic fitting
+#     if np.any(x_flat <= 0):
+#         raise ValueError("Logarithmic fit requires positive feature values")
 
-    # Initial guess for parameters a and b
-    a_guess: float = 1.0
-    b_guess: float = 1.0
-    p0: tuple[float, float] = (a_guess, b_guess)
+#     # Initial guess for parameters a and b
+#     a_guess: float = 1.0
+#     b_guess: float = 1.0
+#     p0: tuple[float, float] = (a_guess, b_guess)
 
-    params, _ = curve_fit(
-        lambda x, a, b: a * np.log(b * x), x_flat, y, p0=p0, maxfev=10000
-    )
+#     params, _ = curve_fit(
+#         lambda x, a, b: a * np.log(b * x), x_flat, y, p0=p0, maxfev=10000
+#     )
 
-    a: float = float(params[0])
-    b: float = float(params[1])
-    LOG.info("Fitted logarithmic curve:")
-    LOG.info(f"  {TARGET_COL} = {a:.6g} * log({b:.6g} * {FEATURE_COL})")
+#     a: float = float(params[0])
+#     b: float = float(params[1])
+#     LOG.info("Fitted logarithmic curve:")
+#     LOG.info(f"  {TARGET_COL} = {a:.6g} * log({b:.6g} * {FEATURE_COL})")
 
-    y_hat: np.ndarray = a * np.log(b * x_flat)
-    return params, y_hat
+#     y_hat: np.ndarray = a * np.log(b * x_flat)
+#     return params, y_hat
 
 
 # === Section 6. Predict ===
@@ -418,82 +417,79 @@ def examine_fit(
     LOG.debug(f"  residual max:  {float(np.max(residuals)):.6g}")
     LOG.debug(f"  residual mean: {float(np.mean(residuals)):.6g}")
 
-    LOG.info("""
-Linear Regression Fit Numbers (requires interpretation):
-             R-squared is near 1, indicating the line accounts for most of the variation in y.
-             Residual plot shows clustering of residuals, indicating a straight line is not the right description.
-""")
-
     return residuals
 
 
-def examine_fit_exponential(
-    params: np.ndarray, X: np.ndarray, y: np.ndarray, y_hat: np.ndarray
-) -> np.ndarray:
-    """Compute residuals and R-squared for an exponential fit."""
-    LOG.info("Computing residuals for the exponential fit")
-    residuals: np.ndarray = y - y_hat
+# def examine_fit_exponential(
+#     params: np.ndarray, X: np.ndarray, y: np.ndarray, y_hat: np.ndarray
+# ) -> np.ndarray:
+#     """Compute residuals and R-squared for an exponential fit."""
+#     LOG.info("Computing residuals for the exponential fit")
+#     residuals: np.ndarray = y - y_hat
 
-    ss_res: float = float(np.sum(residuals**2))
-    ss_tot: float = float(np.sum((y - np.mean(y)) ** 2))
-    r_squared: float = 1.0 - ss_res / ss_tot if ss_tot != 0.0 else 0.0
-    rmse: float = float(np.sqrt(np.mean(residuals**2)))
+#     ss_res: float = float(np.sum(residuals**2))
+#     ss_tot: float = float(np.sum((y - np.mean(y)) ** 2))
+#     r_squared: float = 1.0 - ss_res / ss_tot if ss_tot != 0.0 else 0.0
+#     rmse: float = float(np.sqrt(np.mean(residuals**2)))
 
-    a: float = float(params[0])
-    b: float = float(params[1])
-    LOG.info("Exponential fit numbers (requires interpretation):")
-    LOG.debug(f"  {TARGET_COL} = {a:.6g} * exp({b:.6g} * {FEATURE_COL})")
-    LOG.debug(f"  R-squared: {r_squared:.4f}")
-    LOG.debug(f"  RMSE:      {rmse:.6g}  (in units of {TARGET_LABEL})")
-    LOG.debug(f"  residual min:  {float(np.min(residuals)):.6g}")
-    LOG.debug(f"  residual max:  {float(np.max(residuals)):.6g}")
-    LOG.debug(f"  residual mean:  {float(np.mean(residuals)):.6g}")
+#     a: float = float(params[0])
+#     b: float = float(params[1])
+#     LOG.info("Exponential fit numbers (requires interpretation):")
+#     LOG.debug(f"  {TARGET_COL} = {a:.6g} * exp({b:.6g} * {FEATURE_COL})")
+#     LOG.debug(f"  R-squared: {r_squared:.4f}")
+#     LOG.debug(f"  RMSE:      {rmse:.6g}  (in units of {TARGET_LABEL})")
+#     LOG.debug(f"  residual min:  {float(np.min(residuals)):.6g}")
+#     LOG.debug(f"  residual max:  {float(np.max(residuals)):.6g}")
+#     LOG.debug(f"  residual mean:  {float(np.mean(residuals)):.6g}")
 
-    LOG.info("""
-Exponential Regression Fit Numbers (requires interpretation):
-             R-squared is farther from 1 than linear regression, indicating the curve accounts for a some of the variation in y.
-             Residual plot shows clustering of residuals, indicating an exponential curve line is not the right description.
-""")
+#     LOG.info("""
+# Exponential Regression Fit Numbers (requires interpretation):
+#              R-squared is farther from 1 than linear regression, indicating the curve accounts for a some of the variation in y.
+#              Residual plot shows clustering of residuals, indicating an exponential curve line is not the right description.
+# """)
 
-    return residuals
+#     return residuals
 
 
-def examine_fit_logarithmic(
-    params: np.ndarray, X: np.ndarray, y: np.ndarray, y_hat: np.ndarray
-) -> np.ndarray:
-    """Compute residuals and R-squared for a logarithmic fit."""
-    LOG.info("Computing residuals for the logarithmic fit")
-    residuals: np.ndarray = y - y_hat
+# def examine_fit_logarithmic(
+#     params: np.ndarray, X: np.ndarray, y: np.ndarray, y_hat: np.ndarray
+# ) -> np.ndarray:
+#     """Compute residuals and R-squared for a logarithmic fit."""
+#     LOG.info("Computing residuals for the logarithmic fit")
+#     residuals: np.ndarray = y - y_hat
 
-    ss_res: float = float(np.sum(residuals**2))
-    ss_tot: float = float(np.sum((y - np.mean(y)) ** 2))
-    r_squared: float = 1.0 - ss_res / ss_tot if ss_tot != 0.0 else 0.0
-    rmse: float = float(np.sqrt(np.mean(residuals**2)))
+#     ss_res: float = float(np.sum(residuals**2))
+#     ss_tot: float = float(np.sum((y - np.mean(y)) ** 2))
+#     r_squared: float = 1.0 - ss_res / ss_tot if ss_tot != 0.0 else 0.0
+#     rmse: float = float(np.sqrt(np.mean(residuals**2)))
 
-    a: float = float(params[0])
-    b: float = float(params[1])
-    LOG.info("Logarithmic fit numbers (requires interpretation):")
-    LOG.debug(f"  {TARGET_COL} = {a:.6g} * log({b:.6g} * {FEATURE_COL})")
-    LOG.debug(f"  R-squared: {r_squared:.4f}")
-    LOG.debug(f"  RMSE:      {rmse:.6g}  (in units of {TARGET_LABEL})")
-    LOG.debug(f"  residual min:  {float(np.min(residuals)):.6g}")
-    LOG.debug(f"  residual max:  {float(np.max(residuals)):.6g}")
-    LOG.debug(f"  residual mean:  {float(np.mean(residuals)):.6g}")
+#     a: float = float(params[0])
+#     b: float = float(params[1])
+#     LOG.info("Logarithmic fit numbers (requires interpretation):")
+#     LOG.debug(f"  {TARGET_COL} = {a:.6g} * log({b:.6g} * {FEATURE_COL})")
+#     LOG.debug(f"  R-squared: {r_squared:.4f}")
+#     LOG.debug(f"  RMSE:      {rmse:.6g}  (in units of {TARGET_LABEL})")
+#     LOG.debug(f"  residual min:  {float(np.min(residuals)):.6g}")
+#     LOG.debug(f"  residual max:  {float(np.max(residuals)):.6g}")
+#     LOG.debug(f"  residual mean:  {float(np.mean(residuals)):.6g}")
 
-    LOG.info("""
-Logarithmic Regression Fit Numbers (requires interpretation):
-             R-squared is far from 1, indicating the curve does not account for most of the variation in y.
-             Residual plot shows clustering of residuals, indicating a logarithmic curve is not the right description.
-""")
+#     LOG.info("""
+# Logarithmic Regression Fit Numbers (requires interpretation):
+#              R-squared is far from 1, indicating the curve does not account for most of the variation in y.
+#              Residual plot shows clustering of residuals, indicating a logarithmic curve is not the right description.
+# """)
 
-    return residuals
+#     return residuals
 
 
 # === Section 8. Create Visualizations ===
 
 
 def make_plots(
-    df_model: pd.DataFrame, y_hat: np.ndarray, residuals: np.ndarray
+    df_model: pd.DataFrame,
+    y_hat: np.ndarray,
+    residuals: np.ndarray,
+    title_suffix: str = "",
 ) -> None:
     """Create notebook-friendly plots for the regression.
 
@@ -535,7 +531,9 @@ def make_plots(
 
     scatter_plt.set_xlabel(FEATURE_LABEL)
     scatter_plt.set_ylabel(TARGET_LABEL)
-    scatter_plt.set_title(f"{FEATURE_LABEL} vs {TARGET_LABEL} with fitted line")
+    scatter_plt.set_title(
+        f"{FEATURE_LABEL} vs {TARGET_LABEL} with fitted line {title_suffix}"
+    )
 
     # IN NOTEBOOK: SHOW AS YOU GO
     #      plt.show() displays the current chart and closes it
@@ -565,7 +563,7 @@ def make_plots(
 
     residual_plt.set_xlabel(FEATURE_LABEL)
     residual_plt.set_ylabel(f"Residual ({TARGET_LABEL})")
-    residual_plt.set_title(f"Residuals vs {FEATURE_LABEL}")
+    residual_plt.set_title(f"Residuals vs {FEATURE_LABEL}{title_suffix}")
 
     # IN NOTEBOOK: SHOW AS YOU GO
     #      plt.show() displays the current chart and closes it
@@ -620,13 +618,6 @@ def summarize(
     LOG.info("then a straight line MIGHT be a good description. ")
     LOG.info("Either way, the findings may be valuable.")
     LOG.info("======================")
-    LOG.info("Repeat with a different feature, or a transformed feature, ")
-    LOG.info("to investigate other options.")
-    LOG.info("======================")
-    LOG.info("Include instructions and specifics in your README.md file.")
-    LOG.info("Write up your narrative on your docs/index.md file.")
-    LOG.info("Include your next step suggestions for further analysis or modeling.")
-    LOG.info("======================")
 
 
 # === DEFINE THE MAIN FUNCTION THAT CALLS OTHER FUNCTIONS ===
@@ -643,34 +634,79 @@ def main() -> None:
     LOG.info(f"--- Section 2: Load dataset: {DATASET_NAME} ---")
     df = load_data()
 
-    LOG.info("--- Section 3: Prepare a modeling view (feature + target) ---")
-    df_model = make_model_view(df)
+    # If the dataset contains a `year` column, run the regressions per-year
+    if "year" in df.columns:
+        years = sorted(df["year"].dropna().unique())
+        LOG.info(f"Found year column. Running regressions for {len(years)} years")
 
-    LOG.info("--- Section 4: Build feature matrix X and target vector y ---")
-    X, y = build_x_and_y(df_model)
+        for yr in years:
+            LOG.info(f"--- Processing Year: {yr} ---")
+            df_year = df[df["year"] == yr]
+            df_model_year = make_model_view(df_year)
 
-    LOG.info(
-        "--- Section 5: Fit a straight line, exponential curve, and logarithmic curve (numpy and scikit-learn) ---"
-    )
-    model = fit_line(X, y)
-    params_2, y_hat_2 = fit_exponential(X, y)
-    params_3, y_hat_3 = fit_logarithmic(X, y)
+            if df_model_year.shape[0] < 2:
+                LOG.info(f"Skipping year {yr}: not enough rows for regression")
+                continue
 
-    LOG.info("--- Section 6: Predict fitted values and an example value ---")
-    y_hat = predict(model, X)
+            X, y = build_x_and_y(df_model_year)
 
-    LOG.info("--- Section 7: Examine the fit (residuals, R-squared, RMSE) ---")
-    residuals = examine_fit(model, X, y, y_hat)
-    residuals_2 = examine_fit_exponential(params_2, X, y, y_hat_2)
-    residuals_3 = examine_fit_logarithmic(params_3, X, y, y_hat_3)
+            # Fit linear model
+            model = fit_line(X, y)
+            y_hat = predict(model, X)
+            residuals = examine_fit(model, X, y, y_hat)
+            make_plots(df_model_year, y_hat, residuals, title_suffix=f" (Year {yr})")
 
-    LOG.info("--- Section 8: Charts ---")
-    make_plots(df_model, y_hat, residuals)
-    make_plots(df_model, y_hat_2, residuals_2)
-    make_plots(df_model, y_hat_3, residuals_3)
+            # Summarize this year's linear model
+            summarize(df_year, df_model_year, model)
+
+            # # Fit exponential (guarded)
+            # try:
+            #     params_2, y_hat_2 = fit_exponential(X, y)
+            #     residuals_2 = examine_fit_exponential(params_2, X, y, y_hat_2)
+            #     make_plots(df_model_year, y_hat_2, residuals_2, title_suffix=f" (Year {yr}) - Exponential")
+            # except Exception as exc:  # keep going even if one fit fails
+            #     LOG.info(f"Exponential fit failed for year {yr}: {exc}")
+
+            # # Fit logarithmic (guarded)
+            # try:
+            #     params_3, y_hat_3 = fit_logarithmic(X, y)
+            #     residuals_3 = examine_fit_logarithmic(params_3, X, y, y_hat_3)
+            #     make_plots(df_model_year, y_hat_3, residuals_3, title_suffix=f" (Year {yr}) - Logarithmic")
+            # except Exception as exc:  # keep going even if one fit fails
+            #     LOG.info(f"Logarithmic fit failed for year {yr}: {exc}")
+
+    else:
+        LOG.info("--- Section 3: Prepare a modeling view (feature + target) ---")
+        df_model = make_model_view(df)
+
+        LOG.info("--- Section 4: Build feature matrix X and target vector y ---")
+        X, y = build_x_and_y(df_model)
+
+        LOG.info(
+            "--- Section 5: Fit a straight line, exponential curve, and logarithmic curve (numpy and scikit-learn) ---"
+        )
+        model = fit_line(X, y)
+        # params_2, y_hat_2 = fit_exponential(X, y)
+        # params_3, y_hat_3 = fit_logarithmic(X, y)
+
+        LOG.info("--- Section 6: Predict fitted values and an example value ---")
+        y_hat = predict(model, X)
+
+        LOG.info("--- Section 7: Examine the fit (residuals, R-squared, RMSE) ---")
+        residuals = examine_fit(model, X, y, y_hat)
+        # residuals_2 = examine_fit_exponential(params_2, X, y, y_hat_2)
+        # residuals_3 = examine_fit_logarithmic(params_3, X, y, y_hat_3)
+
+        LOG.info("--- Section 8: Charts ---")
+        make_plots(df_model, y_hat, residuals)
+        # make_plots(df_model, y_hat_2, residuals_2)
+        # make_plots(df_model, y_hat_3, residuals_3)
 
     LOG.info("--- Section 9: Summary and next steps ---")
-    summarize(df, df_model, model)
+    if "year" not in df.columns:
+        summarize(df, df_model, model)
+    else:
+        LOG.info("Per-year summaries have been logged inside the loop.")
 
     LOG.info(
         "----- in a script, call plt.show() once at the end to display all charts -----"
